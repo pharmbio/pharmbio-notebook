@@ -1,0 +1,21 @@
+sudo: 'required'
+
+services:
+  - docker
+
+# Build and test the images (if this step fails the whole Travis build is considered a failure).
+script:
+
+  # Build Docker image
+  # Create a docker image tag out of branch-name where / is replaced by -
+  - tag="${TRAVIS_BRANCH/\//-}"
+  - image="notebook-playground"
+  - docker build -t pharmbio/$image:$tag .
+
+  # Test container
+  - docker run pharmbio/$image:$tag mysql --version
+
+after_success:
+  # Login and push image
+  - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD ;
+  - docker push pharmbio/$image:$tag

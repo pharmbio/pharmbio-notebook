@@ -27,6 +27,9 @@ RUN apt update && apt install -y --no-install-recommends \
     curl -o /tmp/pachctl.deb -L https://github.com/pachyderm/pachyderm/releases/download/v${pachctl_version}/pachctl_${pachctl_version}_amd64.deb && dpkg -i /tmp/pachctl.deb && \
     # pip installs
     pip install --no-cache-dir \
+    pymysql \
+    python-pachyderm \
+    awscli \
     opencv-python \
     numpy \
     scipy \
