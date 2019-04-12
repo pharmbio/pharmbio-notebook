@@ -4,6 +4,8 @@ FROM tensorflow/tensorflow:${tf_base}
 
 # Set pachctl version to match desired pachd version
 
+ENV SHELL=/bin/bash
+
 ARG pachctl_version=1.7.10
 RUN apt update && apt install -y --no-install-recommends \
     # apt installs
@@ -41,6 +43,8 @@ RUN apt update && apt install -y --no-install-recommends \
     # cleanup
     rm /tmp/pachctl.deb
 
-ADD README.md /home/
+COPY README.md /home/
+COPY notebooks/* /notebooks/
+COPY secrets_manager.py /home
 
 WORKDIR /home
