@@ -18,4 +18,5 @@ script:
 after_success:
   # Login and push image
   - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD ;
-  - docker push pharmbio/$image:$tag
+  - docker tag pharmbio/$image:$tag pharmbio/$image:latest
+  - docker push pharmbio/$image:latest
