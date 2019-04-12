@@ -8,7 +8,7 @@ script:
 
   # Build Docker image
   # Create a docker image tag out of branch-name where / is replaced by -
-  - tag="${TRAVIS_BRANCH/\//-}"
+  - tag="latest"
   - image="pharmbio-notebook"
   - docker build -t pharmbio/$image:$tag .
 
@@ -18,5 +18,4 @@ script:
 after_success:
   # Login and push image
   - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD ;
-  - docker tag pharmbio/$image:$tag pharmbio/$image:latest
-  - docker push pharmbio/$image:latest
+  - docker push pharmbio/$image:$tag
