@@ -1,4 +1,4 @@
-ARG tf_base=1.12.0-py3
+ARG tf_base=1.12.0-gpu-py3
 
 FROM tensorflow/tensorflow:${tf_base}
 
