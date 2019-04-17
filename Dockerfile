@@ -46,5 +46,6 @@ RUN apt update && apt install -y --no-install-recommends \
 COPY README.md /home/
 COPY notebooks/* /notebooks/
 COPY secrets_manager.py /home
+COPY source_minio_credentials.rc /home/
 
 WORKDIR /home
