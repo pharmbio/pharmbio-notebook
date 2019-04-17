@@ -8,7 +8,7 @@ script:
 
   # Build Docker image
   # Create a docker image tag out of branch-name where / is replaced by -
-  - tag="${TRAVIS_BRANCH/\//-}"
+  - tag="latest"
   - image="pharmbio-notebook"
   - docker build -t pharmbio/$image:$tag .
 
