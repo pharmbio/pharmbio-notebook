@@ -47,5 +47,6 @@ COPY README.md /home/
 COPY notebooks/* /notebooks/
 COPY secrets_manager.py /home
 COPY source_minio_credentials.rc /home/
+COPY cpsign-0.7.12.jar /home/cpsign-0.7.12.jar
 
 WORKDIR /home
