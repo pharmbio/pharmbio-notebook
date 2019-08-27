@@ -21,6 +21,7 @@ RUN apt update && apt install -y --no-install-recommends \
     nano \
     mysql-client \
     default-jdk \
+    libpq-dev \
     curl && \
     # custom installs
     curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
