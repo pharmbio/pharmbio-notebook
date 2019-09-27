@@ -1,4 +1,4 @@
-ARG tf_base=1.14.0-gpu-py3
+ARG tf_base=1.14.0-py3
 
 FROM tensorflow/tensorflow:${tf_base}
 
@@ -20,6 +20,8 @@ RUN apt update && apt install -y --no-install-recommends \
     default-jdk \
     git \
     curl
+
+## SEPARATED FOR CACHING
 
 # pip installs
 RUN pip install --no-cache-dir \
