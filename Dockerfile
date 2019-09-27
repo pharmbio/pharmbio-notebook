@@ -1,14 +1,11 @@
-ARG tf_base=1.12.0-gpu-py3
+ARG tf_base=1.14.0-gpu-py3
 
 FROM tensorflow/tensorflow:${tf_base}
 
-# Set pachctl version to match desired pachd version
-
 ENV SHELL=/bin/bash
 
-ARG pachctl_version=1.7.10
+# apt installs
 RUN apt update && apt install -y --no-install-recommends \
-    # apt installs
     apt-transport-https \
     ca-certificates \
     gnupg \
@@ -21,16 +18,12 @@ RUN apt update && apt install -y --no-install-recommends \
     nano \
     mysql-client \
     default-jdk \
-    curl && \
-    # custom installs
-    curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
-    echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list && \
-    apt update && apt install -y --no-install-recommends kubectl  && \
-    curl -o /tmp/pachctl.deb -L https://github.com/pachyderm/pachyderm/releases/download/v${pachctl_version}/pachctl_${pachctl_version}_amd64.deb && dpkg -i /tmp/pachctl.deb && \
-    # pip installs
-    pip install --no-cache-dir \
+    git \
+    curl
+
+# pip installs
+RUN pip install --no-cache-dir \
     pymysql \
-    python-pachyderm \
     awscli \
     opencv-python \
     numpy \
@@ -39,13 +32,23 @@ RUN apt update && apt install -y --no-install-recommends \
     matplotlib \
     pandas \
     keras \
-    pillow && \
-    # cleanup
-    rm /tmp/pachctl.deb
+    pillow
 
-COPY README.md /home/
-COPY notebooks/* /notebooks/
-COPY secrets_manager.py /home
-COPY source_minio_credentials.rc /home/
+## User and permission setup
 
-WORKDIR /home
+ARG NB_USER="jovyan"
+ARG NB_UID="1000"
+
+#RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER
+RUN adduser --disabled-password --gecos '' --uid $NB_UID $NB_USER
+RUN adduser $NB_USER sudo
+RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+USER $NB_USER
+WORKDIR /home/$NB_USER
+
+
+COPY README.md .
+COPY notebooks/* ./notebooks/
+COPY secrets_manager.py .
+COPY source_minio_credentials.rc .
