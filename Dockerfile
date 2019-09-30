@@ -1,6 +1,5 @@
-ARG tf_base=1.14.0-py3
-
-FROM tensorflow/tensorflow:${tf_base}
+## https://docs.nvidia.com/deeplearning/frameworks/tensorflow-release-notes/rel_19.09.html#rel_19.09
+FROM nvcr.io/nvidia/tensorflow:19.09-py3
 
 ENV SHELL=/bin/bash
 
