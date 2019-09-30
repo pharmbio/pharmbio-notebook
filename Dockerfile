@@ -23,7 +23,7 @@ RUN apt update && apt install -y --no-install-recommends \
 
 # pip installs
 WORKDIR /home/$NB_USER
-COPY requirements.txt  dest
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 ## User and permission setup
