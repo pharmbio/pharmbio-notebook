@@ -23,17 +23,9 @@ RUN apt update && apt install -y --no-install-recommends \
 ## SEPARATED FOR CACHING
 
 # pip installs
-RUN pip install --no-cache-dir \
-    pymysql==0.9.3 \
-    awscli==1.16.248 \
-    opencv-python-headless==4.1.1.26 \
-    numpy==1.16.4 \
-    scipy==1.3.1 \
-    scikit-learn==0.21.3 \
-    matplotlib==3.1.1 \
-    pandas==0.25.1 \
-    keras==2.3.0 \
-    pillow==6.1.0
+WORKDIR /home/$NB_USER
+COPY requirements.txt  dest
+RUN pip install --no-cache-dir -r requirements.txt
 
 ## User and permission setup
 
