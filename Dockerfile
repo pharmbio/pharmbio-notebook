@@ -26,8 +26,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 ## User and permission setup
 
-ARG NB_USER="jovyan"
-ARG NB_UID="1000"
+# there must always be a jovyan
+ENV NB_USER="jovyan"
+ENV NB_UID="1000"
 
 #RUN useradd -m -s /bin/bash -N -u $NB_UID $NB_USER
 RUN adduser --disabled-password --gecos '' --uid $NB_UID $NB_USER && adduser $NB_USER sudo && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
