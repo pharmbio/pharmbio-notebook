@@ -51,5 +51,8 @@ COPY README.md .
 COPY notebooks/* ./notebooks/
 COPY secrets_manager.py .
 COPY source_minio_credentials.rc .
+COPY entrypoint.sh /
 
 WORKDIR /home/$NB_USER
+
+CMD /entrypoint.sh
