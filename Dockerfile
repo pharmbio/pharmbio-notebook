@@ -11,11 +11,9 @@ RUN apt update && apt install -y --no-install-recommends \
     tmux \
     sudo \
     ssh \
-    #libsm6 \
-    #libxext6 \
-    #libxrender-dev \
     nano \
     mysql-client \
+    libpq-dev \
     git \
     curl
 
