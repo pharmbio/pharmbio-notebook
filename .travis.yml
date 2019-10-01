@@ -9,7 +9,7 @@ script:
   ## Build Docker image for CPU based tensorflow
 
   # Create a docker image tag out of branch-name where / is replaced by -
-  - tf-version = ${TRAVIS_BRANCH/\//-}
+  - tf-version="${TRAVIS_BRANCH/\//-}"
   - tag="tf-${tf-version}"
   - image="pharmbio-notebook"
   - docker build -t pharmbio/$image:$tag . --build-arg BASE_IMAGE=tensorflow/tensorflow:${tf-version}-py3-jupyter
