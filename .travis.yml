@@ -6,16 +6,22 @@ services:
 # Build and test the images (if this step fails the whole Travis build is considered a failure).
 script:
 
-  # Build Docker image
+  ## Build Docker image for CPU based tensorflow
+
   # Create a docker image tag out of branch-name where / is replaced by -
-  - tag="${TRAVIS_BRANCH/\//-}"
+  - tag="tf-${TRAVIS_BRANCH/\//-}"
   - image="pharmbio-notebook"
-  - docker build -t pharmbio/$image:$tag .
+  - docker build -t pharmbio/$image:$tag . --build-arg BASE_IMAGE=tensorflow/tensorflow:${tag}-py3-jupyter
+
+  # Create a docker image tag out of branch-name where / is replaced by -
+  - image="pharmbio-notebook"
+  - docker build -t pharmbio/$image:${tag}-gpu . --build-arg BASE_IMAGE=tensorflow/tensorflow:${tag}-gpu-py3-jupyter
 
   # Test container
-  - docker run pharmbio/$image:$tag mysql --version
+  - docker run pharmbio/$image:$tag jupyter --version
 
 after_success:
   # Login and push image
   - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD ;
   - docker push pharmbio/$image:$tag
+  - docker push pharmbio/$image:${tag}-gpu
