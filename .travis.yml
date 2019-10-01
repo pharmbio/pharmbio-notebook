@@ -9,16 +9,18 @@ script:
   ## Build Docker image for CPU based tensorflow
 
   # Create a docker image tag out of branch-name where / is replaced by -
-  - tag="tf-${TRAVIS_BRANCH/\//-}"
+  - tf-version = ${TRAVIS_BRANCH/\//-}
+  - tag="tf-${tf-version}"
   - image="pharmbio-notebook"
-  - docker build -t pharmbio/$image:$tag . --build-arg BASE_IMAGE=tensorflow/tensorflow:${tag}-py3-jupyter
+  - docker build -t pharmbio/$image:$tag . --build-arg BASE_IMAGE=tensorflow/tensorflow:${tf-version}-py3-jupyter
 
   # Create a docker image tag out of branch-name where / is replaced by -
   - image="pharmbio-notebook"
-  - docker build -t pharmbio/$image:${tag}-gpu . --build-arg BASE_IMAGE=tensorflow/tensorflow:${tag}-gpu-py3-jupyter
+  - docker build -t pharmbio/$image:${tag}-gpu . --build-arg BASE_IMAGE=tensorflow/tensorflow:${tf-version}-gpu-py3-jupyter
 
   # Test container
   - docker run pharmbio/$image:$tag jupyter --version
+  - docker run pharmbio/$image:${tag}-gpu jupyter --version
 
 after_success:
   # Login and push image
