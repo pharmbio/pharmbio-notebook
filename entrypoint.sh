@@ -15,4 +15,9 @@ fi
 echo Copied tutorials and templates, starting notebook...
 
 # Start jupyter service
-jupyter notebook --notebook-dir=/home/$NB_USER --ip 0.0.0.0 --no-browser --allow-root
+jupyter notebook --notebook-dir=/home/jovyan \
+                 --ip 0.0.0.0 \
+                 --no-browser \
+                 --allow-root \
+                 --NotebookApp.password="$NOTEBOOK_PASSW_SHA1" \
+                 --NotebookApp.allow_password_change=True
