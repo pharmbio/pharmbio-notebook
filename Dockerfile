@@ -20,38 +20,28 @@ RUN apt update && apt install -y --no-install-recommends \
     git \
     curl
 
-# pip installs
-RUN pip install --no-cache-dir \
-    pymysql==0.9.3 \
-    awscli==1.16.248 \
-    opencv-python-headless==4.1.1.26 \
-    numpy==1.16.4 \
-    scipy==1.3.1 \
-    scikit-learn==0.21.3 \
-    matplotlib==3.1.1 \
-    pandas==0.25.1 \
-    keras==2.3.0 \
-    pillow==6.1.0
-
-# there must always be a jovyan
-ENV NB_USER="jovyan"
-ENV NB_UID="1000"
-
-RUN adduser --disabled-password --gecos '' --uid $NB_UID $NB_USER
-RUN adduser $NB_USER sudo
-RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
-
-USER $NB_USER
-
+# add pharmbio templates, examples and misc
 WORKDIR /pharmbio/
-
 COPY README.md .
 COPY notebooks/* ./notebooks/
 COPY secrets_manager.py .
 COPY source_minio_credentials.rc .
 COPY entrypoint.sh /
 
-WORKDIR /home/$NB_USER
+# pip installs
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+
+# there must always be a jovyan - user name is hardcoded to jovyan for compatibility purposes
+RUN adduser --disabled-password --gecos '' --uid 1000 jovyan
+RUN adduser jovyan sudo
+RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+USER jovyan
+
+
+WORKDIR /home/jovyan
 
 #
 # The entrypoint will first copy /pharmbio/ files to user home

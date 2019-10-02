@@ -3,13 +3,13 @@
 echo Preparing content for user home...
 
 # create symlink to pharmbio template dir
-if [ ! -e /home/$NB_USER/pharmbio ]; then
-  ln -s /pharmbio /home/$NB_USER/
+if [ ! -e /home/jovyan/pharmbio ]; then
+  ln -s /pharmbio /home/jovyan/
 fi
 
 # create symlink to tensorflow notebook tutorials dir
-if [ ! -e /home/$NB_USER/tensorflow-tutorials ]; then
-  ln -s /tf/tensorflow-tutorials /home/$NB_USER/tensorflow-tutorials
+if [ ! -e /home/jovyan/tensorflow-tutorials ]; then
+  ln -s /tf/tensorflow-tutorials /home/jovyan/tensorflow-tutorials
 fi
 
 echo Copied tutorials and templates, starting notebook...
