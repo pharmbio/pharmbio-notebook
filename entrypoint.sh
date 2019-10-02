@@ -20,4 +20,5 @@ jupyter notebook --notebook-dir=/home/jovyan \
                  --no-browser \
                  --allow-root \
                  --NotebookApp.password="$NOTEBOOK_PASSW_SHA1" \
-                 --NotebookApp.allow_password_change=True
+                 --NotebookApp.allow_password_change=True \
+                 --NotebookApp.default_url="/lab"
