@@ -27,7 +27,6 @@ COPY README.md .
 COPY notebooks/* ./notebooks/
 COPY secrets_manager.py .
 COPY source_minio_credentials.rc .
-COPY entrypoint.sh /
 
 # pip installs
 COPY requirements.txt .
@@ -40,7 +39,7 @@ RUN adduser jovyan sudo
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 USER jovyan
-
+COPY entrypoint.sh /
 
 WORKDIR /home/jovyan
 # python 3.6 might be changed in future, keep an eye in this
