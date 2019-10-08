@@ -18,6 +18,7 @@ RUN apt update && apt install -y --no-install-recommends \
     mysql-client \
     libpq-dev \
     git \
+    vim \
     curl
 
 # add pharmbio templates, examples and misc
@@ -42,6 +43,7 @@ USER jovyan
 
 
 WORKDIR /home/jovyan
+ENV JUPYTER_PATH='$JUPYTER_PATH:/home/jovyan/.local/lib/python3.6/site-packages'
 
 #
 # The entrypoint will first copy /pharmbio/ files to user home
