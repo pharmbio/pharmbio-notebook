@@ -28,6 +28,9 @@ COPY notebooks/* ./notebooks/
 COPY secrets_manager.py .
 COPY source_minio_credentials.rc .
 
+# Custom bashrc
+COPY bash.bashrc /etc/bash.bashrc
+
 # pip installs
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
