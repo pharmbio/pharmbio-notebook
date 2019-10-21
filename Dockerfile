@@ -19,6 +19,7 @@ RUN apt update && apt install -y --no-install-recommends \
     libpq-dev \
     git \
     vim \
+    wget \
     curl
 
 # add pharmbio templates, examples and misc
