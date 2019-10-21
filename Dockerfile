@@ -33,6 +33,8 @@ COPY source_minio_credentials.rc .
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Custom bashrc
+COPY bash.bashrc /etc/bash.bashrc
 
 # there must always be a jovyan - user name is hardcoded to jovyan for compatibility purposes
 RUN adduser --disabled-password --gecos '' --uid 1000 jovyan
