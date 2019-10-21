@@ -1,51 +1,58 @@
+## https://hub.docker.com/r/tensorflow/tensorflow
+
 ARG tf_base=1.12.0-py3
 
 FROM tensorflow/tensorflow:${tf_base}
 
-# Set pachctl version to match desired pachd version
-
 ENV SHELL=/bin/bash
 
-ARG pachctl_version=1.7.10
+# apt installs
 RUN apt update && apt install -y --no-install-recommends \
-    # apt installs
     apt-transport-https \
     ca-certificates \
     gnupg \
     tmux \
     sudo \
     ssh \
-    libsm6 \
-    libxext6 \
-    libxrender-dev \
     nano \
     mysql-client \
-    default-jdk \
-    curl && \
-    # custom installs
-    curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
-    echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list && \
-    apt update && apt install -y --no-install-recommends kubectl  && \
-    curl -o /tmp/pachctl.deb -L https://github.com/pachyderm/pachyderm/releases/download/v${pachctl_version}/pachctl_${pachctl_version}_amd64.deb && dpkg -i /tmp/pachctl.deb && \
-    # pip installs
-    pip install --no-cache-dir \
-    pymysql \
-    python-pachyderm \
-    awscli \
-    opencv-python \
-    numpy \
-    scipy \
-    scikit-learn \
-    matplotlib \
-    pandas \
-    keras \
-    pillow && \
-    # cleanup
-    rm /tmp/pachctl.deb
+    libpq-dev \
+    git \
+    vim \
+    wget \
+    curl
 
-COPY README.md /home/
-COPY notebooks/* /notebooks/
-COPY secrets_manager.py /home
-COPY source_minio_credentials.rc /home/
+# add pharmbio templates, examples and misc
+WORKDIR /pharmbio/
+COPY README.md .
+COPY notebooks/* ./notebooks/
+COPY secrets_manager.py .
+COPY source_minio_credentials.rc .
 
-WORKDIR /home
+# pip installs
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Custom bashrc
+COPY bash.bashrc /etc/bash.bashrc
+
+# there must always be a jovyan - user name is hardcoded to jovyan for compatibility purposes
+RUN adduser --disabled-password --gecos '' --uid 1000 jovyan
+RUN adduser jovyan sudo
+RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+USER jovyan
+COPY entrypoint.sh /
+
+WORKDIR /home/jovyan
+# python 3.6 might be changed in future, keep an eye in this
+ENV JUPYTER_PATH='$JUPYTER_PATH:/home/jovyan/.local/lib/python3.6/site-packages'
+
+#
+# The entrypoint will first copy /pharmbio/ files to user home
+# This is because /home/jovyan will be mountpoint for persistent volume
+# and all contents that is there already in this image will be masqued with
+# persistent volume contents
+# Then the entrypoint will start jupyter notebook server
+#
+CMD /entrypoint.sh
