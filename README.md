@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/pharmbio/notebook-playground.svg?branch=master)](https://travis-ci.com/pharmbio/notebook-playground)
+[![Build Status](https://travis-ci.com/pharmbio/pharmbio-notebook.svg?branch=1.12.0-gpu-py3)](https://travis-ci.com/pharmbio/pharmbio-notebook)
 
 # pharmbio-notebook-playground
 Docker containers for interactive notebook environments for rancher cluster
