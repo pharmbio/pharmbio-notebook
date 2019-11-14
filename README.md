@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/pharmbio/pharmbio-notebook.svg?branch=1.14.0)](https://travis-ci.com/pharmbio/notebook-playground)
+[![Build Status](https://travis-ci.com/pharmbio/pharmbio-notebook.svg?branch=1.14.0)](https://travis-ci.com/pharmbio/npharmbio-notebook)
 
 # pharmbio-notebook-playground
 Docker containers for interactive notebook environments for rancher cluster. Different branches are used to build notebooks for different tasks, like tensorflow, cpsign etc.
