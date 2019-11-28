@@ -7,7 +7,7 @@ services:
 script:
 
   # Use current branch to get tensorflow docker tag
-  - tensorflow_version="tensorflow_version="${TRAVIS_BRANCH/\//-}""
+  - tensorflow_version="${TRAVIS_BRANCH/\//-}"
   - tag="tf-${tensorflow_version}"
   - image="pharmbio-notebook"
   - echo $tag $image
