@@ -6,8 +6,11 @@ services:
 # Build and test the images (if this step fails the whole Travis build is considered a failure).
 script:
 
-  # NOTE FOR MASTER BRANCH: tensorflow version should match the version tags from https://hub.docker.com/r/tensorflow/tensorflow/tags, i.e. "1.14.0", "1.15.0", "2.0.0" etc.
-  - tensorflow_version="1.14.0"
+#  # NOTE FOR MASTER BRANCH: tensorflow version should match the version tags from https://hub.docker.com/r/tensorflow/tensorflow/tags, i.e. "1.14.0", "1.15.0", "2.0.0" etc.
+#  - tensorflow_version="1.14.0"
+
+  # Use current branch to get tensorflow docker tag
+  - tensorflow_version="${TRAVIS_BRANCH/\//-}"
   - tag="tf-${tensorflow_version}"
   - image="pharmbio-notebook"
   - echo $tag $image

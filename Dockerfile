@@ -1,6 +1,6 @@
 ## https://hub.docker.com/r/tensorflow/tensorflow
 
-ARG BASE_IMAGE=tensorflow/tensorflow:1.14.0-py3-jupyter
+ARG BASE_IMAGE=tensorflow/tensorflow:1.15.0-py3-jupyter
 
 FROM $BASE_IMAGE
 
