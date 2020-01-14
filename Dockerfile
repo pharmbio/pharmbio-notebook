@@ -26,8 +26,8 @@ RUN apt update && apt install -y --no-install-recommends \
 WORKDIR /pharmbio/
 COPY README.md .
 COPY notebooks/* ./notebooks/
-COPY secrets_manager.py .
-COPY source_minio_credentials.rc .
+#COPY secrets_manager.py .
+#COPY source_minio_credentials.rc .
 
 # Custom bashrc
 COPY bash.bashrc /etc/bash.bashrc
