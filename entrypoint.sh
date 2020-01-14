@@ -7,6 +7,11 @@ if [ ! -e /home/jovyan/pharmbio ]; then
   ln -s /pharmbio /home/jovyan/
 fi
 
+# create symlink to /scratch-shared
+if [ ! -e /home/jovyan/scratch-shared ]; then
+  ln -s /scratch-shared /home/jovyan/
+fi
+
 # create symlink to /mnt
 if [ ! -e /home/jovyan/mnt ]; then
   ln -s /mnt /home/jovyan/
