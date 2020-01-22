@@ -20,7 +20,8 @@ RUN apt update && apt install -y --no-install-recommends \
     git \
     vim \
     wget \
-    curl
+    curl \
+    sqlite
 
 # add pharmbio templates, examples and misc
 WORKDIR /pharmbio/
