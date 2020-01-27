@@ -10,5 +10,3 @@ pillow==6.2.2
 jupyterlab==1.2.4
 tifffile==2019.7.26.2
 chembl_webresource_client==0.10.0
-rdkit==2019.09.3.0
-yellowbrick==1.0.1
