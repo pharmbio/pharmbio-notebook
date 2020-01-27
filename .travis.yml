@@ -28,3 +28,15 @@ after_success:
   - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD ;
   - docker push pharmbio/$image:$tag
   - docker push pharmbio/$image:${tag}-gpu
+
+  - patch_version_tag=${echo "$tag" | cut -d'.' -f1}.${echo "$tag" | cut -d'.' -f2}.${echo "$tag" | cut -d'.' -f3}
+  - docker push pharmbio/$image:$patch_version_tag
+  - docker push pharmbio/$image:${patch_version_tag}-gpu
+
+  - minor_version_tag=${echo "$tag" | cut -d'.' -f1}.${echo "$tag" | cut -d'.' -f2}
+  - docker push pharmbio/$image:$minor_version_tag
+  - docker push pharmbio/$image:${minor_version_tag}-gpu
+
+  - major_version_tag=${echo "$tag" | cut -d'.' -f1}
+  - docker push pharmbio/$image:$major_version_tag
+  - docker push pharmbio/$image:${major_version_tag}-gpu
