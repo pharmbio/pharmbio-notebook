@@ -22,7 +22,9 @@ RUN apt update && apt install -y --no-install-recommends \
     wget \
     curl \
     sqlite \
-    sqlite3
+    sqlite3 \
+    libxrender1 \
+    libxext6
 
 # add pharmbio templates, examples and misc
 WORKDIR /pharmbio/
@@ -38,18 +40,45 @@ COPY bash.bashrc /etc/bash.bashrc
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-
 # there must always be a jovyan - user name is hardcoded to jovyan for compatibility purposes
 RUN adduser --disabled-password --gecos '' --uid 1000 jovyan
 RUN adduser jovyan sudo
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
+## make sure jovyan can install in opt
+RUN chown jovyan /opt/
+
+# Fix user
 USER jovyan
 COPY entrypoint.sh /
 
 WORKDIR /home/jovyan
+
+RUN wget --quiet https://repo.anaconda.com/archive/Anaconda3-2019.10-Linux-x86_64.sh -O ~/anaconda.sh && \
+    /bin/bash ~/anaconda.sh -b -p /opt/conda && \
+    rm ~/anaconda.sh
+RUN find /opt/conda/ -follow -type f -name '*.a' -delete && \
+    find /opt/conda/ -follow -type f -name '*.js.map' -delete
+RUN /opt/conda/bin/conda clean -afy
+RUN /opt/conda/bin/conda init
+RUN /opt/conda/bin/conda config --set auto_activate_base false
+RUN /opt/conda/bin/conda create --name pbseq_2020 python=3.6
+
+# Make RUN commands use the new environment:
+SHELL ["/opt/conda/bin/conda", "run", "-n", "pbseq_2020", "/bin/bash", "-c"]
+
+RUN conda install -c rdkit rdkit
+RUN pip install --user sklearn
+RUN pip install --user sklearn
+RUN pip install --user matplotlib
+RUN conda install ipykernel
+RUN ipython kernel install --user --name=Python_3.6_Conda_RDKit
+
+SHELL ["/bin/bash", "-c"]
+
 # python 3.6 might be changed in future, keep an eye in this
 ENV JUPYTER_PATH='$JUPYTER_PATH:/home/jovyan/.local/lib/python3.6/site-packages'
+
 
 #
 # The entrypoint will first copy /pharmbio/ files to user home
