@@ -27,8 +27,6 @@ if [ ! -e /home/jovyan/course-share-pvc ]; then
   ln -s /mnt/course-share-pvc /home/jovyan/
 fi
 
-course-share-pvc
-
 # create symlink to tensorflow notebook tutorials dir
 if [ ! -e /home/jovyan/tensorflow-tutorials ]; then
   ln -s /tf/tensorflow-tutorials /home/jovyan/tensorflow-tutorials
