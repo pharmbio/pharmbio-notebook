@@ -33,9 +33,6 @@ COPY notebooks/* ./notebooks/
 #COPY secrets_manager.py .
 #COPY source_minio_credentials.rc .
 
-# Custom bashrc
-COPY bash.bashrc /etc/bash.bashrc
-
 # pip installs
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
@@ -69,6 +66,9 @@ RUN ipython kernel install --name=Python_3.7_Conda_RDKit
 #
 
 SHELL ["/bin/bash", "-c"]
+
+# Custom bashrc
+COPY bash.bashrc /etc/bash.bashrc
 
 # there must always be a jovyan - user name is hardcoded to jovyan for compatibility purposes
 RUN adduser --disabled-password --gecos '' --uid 1000 jovyan
