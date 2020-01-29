@@ -12,8 +12,8 @@ script:
   # Use current branch to get tensorflow docker tag
   - tensorflow_version=$(echo "$TRAVIS_BRANCH" | cut -d'-' -f1)
   - extra="$(echo "$TRAVIS_BRANCH" | cut -d'-' -f2)
-  - if [ -n "$extra" ]; then
-  - tag="tf-${tensorflow_version}-{variant}"
+  # - if [ -n "$extra" ]; then
+  - tag="tf-${tensorflow_version}"
   - image="pharmbio-notebook"
   - echo $tag $image
 
