@@ -74,11 +74,10 @@ RUN conda install -c rdkit rdkit
 
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-RUN pip install --no-cache-dir --user sklearn
-RUN pip install --no-cache-dir --user matplotlib
+RUN pip install --no-cache-dir sklearn
 
 RUN conda install ipykernel
-RUN ipython kernel install --user --name=Python_3.6_Conda_RDKit
+RUN ipython kernel install --name=Python_3.7_Conda_RDKit
 #
 # End conda
 #
