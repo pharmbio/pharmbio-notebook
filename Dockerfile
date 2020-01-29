@@ -40,20 +40,6 @@ COPY bash.bashrc /etc/bash.bashrc
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# there must always be a jovyan - user name is hardcoded to jovyan for compatibility purposes
-RUN adduser --disabled-password --gecos '' --uid 1000 jovyan
-RUN adduser jovyan sudo
-RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
-
-## make sure jovyan can install in opt
-RUN chown jovyan /opt/
-
-# Fix user
-USER jovyan
-COPY entrypoint.sh /
-
-WORKDIR /home/jovyan
-
 #
 # Conda installation
 #
@@ -82,8 +68,21 @@ RUN ipython kernel install --name=Python_3.7_Conda_RDKit
 # End conda
 #
 
-
 SHELL ["/bin/bash", "-c"]
+
+# there must always be a jovyan - user name is hardcoded to jovyan for compatibility purposes
+RUN adduser --disabled-password --gecos '' --uid 1000 jovyan
+RUN adduser jovyan sudo
+RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+## make sure jovyan can install in opt
+RUN chown jovyan /opt/
+
+# Fix user
+USER jovyan
+COPY entrypoint.sh /
+
+WORKDIR /home/jovyan
 
 # python 3.6 might be changed in future, keep an eye in this
 ENV JUPYTER_PATH='$JUPYTER_PATH:/home/jovyan/.local/lib/python3.6/site-packages'
