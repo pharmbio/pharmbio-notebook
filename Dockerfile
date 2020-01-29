@@ -61,6 +61,8 @@ RUN pip install --no-cache-dir sklearn
 
 RUN conda install ipykernel
 RUN ipython kernel install --name=Python_3.7_Conda_RDKit
+
+COPY .condarc /opt/conda/
 #
 # End conda
 #
