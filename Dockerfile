@@ -1,6 +1,15 @@
 ## https://hub.docker.com/r/tensorflow/tensorflow
 
-ARG BASE_IMAGE=tensorflow/tensorflow:2.1.0-py3-jupyter
+ENV TF_VERSION=2.1.0
+BASE_IMAGE_TYPE="gpu"
+
+#ARG BASE_IMAGE_TYPE=""
+
+RUN if [ "$BASE_IMAGE_TYPE" = "gpu" ] ; then \
+       BASE_IMAGE=tensorflow/tensorflow:$TF_VERSION-gpu-py3-jupyter ; \
+    else \
+       BASE_IMAGE=tensorflow/tensorflow:$TF_VERSION-py3-jupyter ; \
+    fi
 
 FROM $BASE_IMAGE
 
