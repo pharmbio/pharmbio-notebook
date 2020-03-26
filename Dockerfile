@@ -56,6 +56,8 @@ WORKDIR /home/jovyan
 # python 3.6 might be changed in future, keep an eye in this
 ENV JUPYTER_PATH='$JUPYTER_PATH:/home/jovyan/.local/lib/python3.6/site-packages'
 
+ENV TEST='Test'
+
 #
 # The entrypoint will first copy /pharmbio/ files to user home
 # This is because /home/jovyan will be mountpoint for persistent volume
