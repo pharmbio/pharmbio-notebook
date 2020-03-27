@@ -12,10 +12,9 @@ jobs:
     - uses: actions/checkout@v1
 
     - name: Create base image tag name from branch
-      shell: bash
       run: |
         # This gets part of branch name afer last - e.g. branch name = tf-2.1.0
-        BRANCH=${GITHUB_REF##*/}
+        BRANCH=${GITHUB_REF#refs/heads/}
         VERSION=${GITHUB_REF##*-}
         IMAGE_NAME="pharmbio/pharmbio-notebook"
         IMAGE_TAG="$BRANCH-gpu-py3-jupyter"
@@ -48,10 +47,9 @@ jobs:
     - uses: actions/checkout@v1
 
     - name: Create base image tag name from branch
-      shell: bash
       run: |
         # This gets part of branch name afer last - e.g. branch name = tf-2.1.0
-        BRANCH=${GITHUB_REF##*/}
+        BRANCH=${GITHUB_REF#refs/heads/}
         VERSION=${GITHUB_REF##*-}
         IMAGE_NAME="pharmbio/pharmbio-notebook"
         IMAGE_TAG="$BRANCH-gpu-py3-jupyter"
