@@ -53,8 +53,8 @@ jobs:
         BRANCH=${GITHUB_REF##*/}
         VERSION=${GITHUB_REF##*-}
         IMAGE_NAME="pharmbio/pharmbio-notebook"
-        IMAGE_TAG="$BRANCH-gpu-py3-jupyter"
-        BASE_IMAGE="tensorflow/tensorflow:$VERSION-gpu-py3-jupyter"
+        IMAGE_TAG="$BRANCH-py3-jupyter"
+        BASE_IMAGE="tensorflow/tensorflow:$VERSION-py3-jupyter"
         echo ::set-env name=IMAGE_NAME::$IMAGE_NAME
         echo ::set-env name=IMAGE_TAG::$IMAGE_TAG
         echo ::set-env name=BASE_IMAGE::$BASE_IMAGE
