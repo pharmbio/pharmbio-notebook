@@ -24,9 +24,6 @@ jobs:
         echo ::set-output name=IMAGE_TAG::$IMAGE_TAG
         echo ::set-output name=BASE_IMAGE::$BASE_IMAGE
 
-        echo "::set-output name=username::AWS"
-      id: extracted_branch
-
     - name: Echo envs
       run: |
         env
@@ -60,9 +57,6 @@ jobs:
          echo ::set-output name=IMAGE_NAME::$IMAGE_NAME
         echo ::set-output name=IMAGE_TAG::$IMAGE_TAG
         echo ::set-output name=BASE_IMAGE::$BASE_IMAGE
-
-        echo "::set-output name=username::AWS"
-      id: extracted_branch
 
     - name: Echo envs
       run: |
