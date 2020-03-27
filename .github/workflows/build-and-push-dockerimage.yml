@@ -6,17 +6,37 @@ jobs:
 
   build:
 
-    name: Build docker image (with cache) and push it to registry
-    runs-on: ubuntu-latest
+    - name: Create base image tag name from branch
+      shell: bash
+      run: |
+        # This gets part of branch name afer last - e.g. branch name = tf-2.1.0
+        BRANCH="${GITHUB_REF##*/}"
+        VERSION="${GITHUB_REF##*-}"
+        IMAGE_NAME="pharmbio/pharmbio-notebook"
+        IMAGE_TAGS="$VERSION-gpu-py3-jupyter"
+        BASE_IMAGE="tensorflow/tensorflow:$IMAGE_TAG"
+        echo ::set-env name=IMAGE_NAME::$IMAGE_NAME
+        echo ::set-env name=IMAGE_TAGS::$IMAGE_TAGS
+        echo ::set-env name=BASE_IMAGE::$BASE_IMAGE
 
-    steps:
+      id: extracted_branch
 
-    - uses: actions/checkout@v1
+    - name: Echo envs
+      run: |
+        env
 
-    - uses: whoan/docker-build-with-cache-action@master
-      with:
-        username: "${{ secrets.DOCKER_USERNAME }}"
-        password: "${{ secrets.DOCKER_PASSWORD }}"
-        image_name: pharmbio/pharmbio-notebook/tf-2.1.0
-        image_tag: actions-test
-        registry: docker.pkg.github.com
+    - name: Build docker image (with cache) and push it to registry
+      runs-on: ubuntu-latest
+
+      steps:
+
+      - uses: actions/checkout@v1
+
+      - uses: whoan/docker-build-with-cache-action@master
+        with:
+          username: "${{ secrets.DOCKER_USERNAME }}"
+          password: "${{ secrets.DOCKER_PASSWORD }}"
+          image_name: "$IMAGE_NAME"
+          image_tag: "$IMAGE_TAGS"
+          registry: docker.pkg.github.com
+          build_args: "--compress=true --build-arg=BASE_IMAGE=$BASE_IMAGE"

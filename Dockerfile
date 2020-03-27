@@ -1,5 +1,7 @@
-## https://hub.docker.com/r/tensorflow/tensorflow
 
+# This is the Default image to be built, It will be overridden with --build-args in
+# our CICD process
+# https://hub.docker.com/r/tensorflow/tensorflow
 ARG BASE_IMAGE=tensorflow/tensorflow:2.1.0-py3-jupyter
 
 FROM $BASE_IMAGE
@@ -56,7 +58,6 @@ WORKDIR /home/jovyan
 # python 3.6 might be changed in future, keep an eye in this
 ENV JUPYTER_PATH='$JUPYTER_PATH:/home/jovyan/.local/lib/python3.6/site-packages'
 
-ENV TEST='Test'
 
 #
 # The entrypoint will first copy /pharmbio/ files to user home
