@@ -32,10 +32,10 @@ jobs:
       with:
         username: "${{ secrets.DOCKER_USERNAME }}"
         password: "${{ secrets.DOCKER_PASSWORD }}"
-        image_name: "${{ steps.img-vars.IMAGE_NAME }}"
-        image_tag: "${{ steps.img-vars.IMAGE_TAG }}"
+        image_name: "${{ steps.img-vars.outputs.IMAGE_NAME }}"
+        image_tag: "${{ steps.img-vars.outputs.IMAGE_TAG }}"
         registry: docker.pkg.github.com
-        build_args: "--compress=true --build-arg=BASE_IMAGE=${{ steps.img-vars.BASE_IMAGE }}"
+        build_args: "--compress=true --build-arg=BASE_IMAGE=${{ steps.img-vars.outputs.BASE_IMAGE }}"
 
 
   build-nogpu:
@@ -66,7 +66,7 @@ jobs:
       with:
         username: "${{ secrets.DOCKER_USERNAME }}"
         password: "${{ secrets.DOCKER_PASSWORD }}"
-        image_name: "${{ steps.img-vars.IMAGE_NAME }}"
-        image_tag: "${{ steps.img-vars.IMAGE_TAG }}"
+        image_name: "${{ steps.img-vars.outputs.IMAGE_NAME }}"
+        image_tag: "${{ steps.img-vars.outputs.IMAGE_TAG }}"
         registry: docker.pkg.github.com
-        build_args: "--compress=true --build-arg=BASE_IMAGE=${{ steps.img-vars.BASE_IMAGE }}"
+        build_args: "--compress=true --build-arg=BASE_IMAGE=${{ steps.img-vars.outputs.BASE_IMAGE }}"
