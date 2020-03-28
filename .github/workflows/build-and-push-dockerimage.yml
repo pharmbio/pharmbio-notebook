@@ -17,7 +17,7 @@ jobs:
         # This gets part of branch name afer last - e.g. branch name = tf-2.1.0
         BRANCH=${GITHUB_REF##*/}
         VERSION=${GITHUB_REF##*-}
-        IMAGE_NAME="pharmbio/pharmbio-notebook"
+        IMAGE_NAME="pharmbio/docker-containers/pharmbio-notebook"
         IMAGE_TAG="$BRANCH-gpu-py3-jupyter"
         BASE_IMAGE="tensorflow/tensorflow:$VERSION-gpu-py3-jupyter"
         echo ::set-output name=IMAGE_NAME::$IMAGE_NAME
@@ -46,12 +46,12 @@ jobs:
     - uses: actions/checkout@v1
 
     - name: Create base image tag name from branch
-      shell: bash
+      id: img-vars
       run: |
         # This gets part of branch name afer last - e.g. branch name = tf-2.1.0
         BRANCH=${GITHUB_REF##*/}
         VERSION=${GITHUB_REF##*-}
-        IMAGE_NAME="pharmbio/pharmbio-notebook"
+        IMAGE_NAME="pharmbio/docker-containers/pharmbio-notebook"
         IMAGE_TAG="$BRANCH-py3-jupyter"
         BASE_IMAGE="tensorflow/tensorflow:$VERSION-py3-jupyter"
          echo ::set-output name=IMAGE_NAME::$IMAGE_NAME
