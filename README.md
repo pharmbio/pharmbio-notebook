@@ -6,11 +6,13 @@ Docker containers for interactive notebook environments for rancher cluster. Dif
 Built dockers published to [pharmbio docker repo](https://cloud.docker.com/u/pharmbio/repository/docker/pharmbio/pharmbio-notebook), updates to this repo builds automatically with travis
 
 # Branch versioning
-Starting from 1.14.0 an onwards, this repo is based on using branch names matching the tensorflow [docker image versions](https://hub.docker.com/r/tensorflow/tensorflow/tags), i.e. 1.14.0, 1.15.0, 2.0.0 etc. The branch name is used by travis to build docker images based on the tensorflow docker images, and both CPU and GPU version is built from every version.
+Current branch for latest is tf-2.1.0<br>
+This repo is based on using branch names matching the tensorflow [docker image versions](https://hub.docker.com/r/tensorflow/tensorflow/tags), i.e. 1.14.0, 1.15.0, 2.1.0 etc. The branch name is used by travis and GitHub Actions to build docker images based on the tensorflow docker images, and both CPU and GPU version is built from every version.
 
-**Current tags:**
+**Example tags:**
+* tf-2.1.0 (new versioning with prefix indicating this is based upon tensorflow)
 * 1.12.0 and 1.12.0-gpu (old versioning)
-* 1.14.0 (master)
+* 1.14.0 (old-versioning)
 
 
 ## Tensorflow notebooks
