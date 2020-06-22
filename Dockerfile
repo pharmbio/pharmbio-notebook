@@ -24,7 +24,9 @@ RUN apt update && apt install -y --no-install-recommends \
     wget \
     curl \
     sqlite \
-    sqlite3
+    sqlite3 \
+    default-jre \
+    less
 
 # add pharmbio templates, examples and misc
 WORKDIR /pharmbio/
