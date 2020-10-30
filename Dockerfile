@@ -24,7 +24,11 @@ RUN apt update && apt install -y --no-install-recommends \
     wget \
     curl \
     sqlite \
-    sqlite3
+    sqlite3 \
+    texlive-xetex \
+    texlive-fonts-recommended \
+    texlive-generic-recommended
+
 
 # add pharmbio templates, examples and misc
 WORKDIR /pharmbio/
