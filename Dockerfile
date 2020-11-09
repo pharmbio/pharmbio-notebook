@@ -8,6 +8,10 @@ FROM $BASE_IMAGE
 
 ENV SHELL=/bin/bash
 
+# add timezone info
+ENV TZ=Europe/Stockholm
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 # apt installs
 RUN apt update && apt install -y --no-install-recommends \
     apt-transport-https \
@@ -24,7 +28,11 @@ RUN apt update && apt install -y --no-install-recommends \
     wget \
     curl \
     sqlite \
-    sqlite3
+    sqlite3 \
+    texlive-xetex \
+    texlive-fonts-recommended \
+    texlive-generic-recommended
+
 
 # add pharmbio templates, examples and misc
 WORKDIR /pharmbio/
