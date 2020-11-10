@@ -16,6 +16,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN apt update && apt install -y --no-install-recommends \
     apt-transport-https \
     ca-certificates \
+    software-properties-common \
     gnupg \
     tmux \
     sudo \
@@ -48,15 +49,12 @@ COPY bash.bashrc /etc/bash.bashrc
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-Run apt install -y --no-install-recommends software-properties-common
+# Install R
 Run apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
 Run add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran40/'
 Run apt update && apt install -y --no-install-recommends r-base
-
 Run Rscript -e "install.packages('IRkernel')"
 Run Rscript -e "IRkernel::installspec(user = FALSE)"
-
-
 
 # there must always be a jovyan - user name is hardcoded to jovyan for compatibility purposes
 RUN adduser --disabled-password --gecos '' --uid 1000 jovyan
