@@ -10,8 +10,9 @@ script:
 #  - tensorflow_version="1.14.0"
 
   # Use current branch to get tensorflow docker tag
-  - tensorflow_version="${TRAVIS_BRANCH##*-}"
-  - tag="${TRAVIS_BRANCH##*/}"
+  - tensorflow_version=2.1.0
+  - extra="pytorch"
+  - tag="tf-${tensorflow_version}-${extra}"
   - image="pharmbio-notebook"
   - echo $tag $image
 
@@ -29,14 +30,15 @@ after_success:
   - docker push pharmbio/$image:$tag
   - docker push pharmbio/$image:${tag}-gpu
 
-  - patch_version_tag=${echo "$tag" | cut -d'.' -f1}.${echo "$tag" | cut -d'.' -f2}.${echo "$tag" | cut -d'.' -f3}
+  - patch_version_tag=${echo "$tag" | cut -d'.' -f1}.${echo "$tag" | cut -d'.' -f2}.${echo "$tag" | cut -d'.' -f3}-${extra}
   - docker push pharmbio/$image:$patch_version_tag
   - docker push pharmbio/$image:${patch_version_tag}-gpu
 
-  - minor_version_tag=${echo "$tag" | cut -d'.' -f1}.${echo "$tag" | cut -d'.' -f2}
+  - minor_version_tag=${echo "$tag" | cut -d'.' -f1}.${echo "$tag" | cut -d'.' -f2}-${extra}
   - docker push pharmbio/$image:$minor_version_tag
   - docker push pharmbio/$image:${minor_version_tag}-gpu
 
-  - major_version_tag=${echo "$tag" | cut -d'.' -f1}
+  - major_version_tag=${echo "$tag" | cut -d'.' -f1}-${extra}
   - docker push pharmbio/$image:$major_version_tag
   - docker push pharmbio/$image:${major_version_tag}-gpu
+
