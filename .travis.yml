@@ -11,7 +11,7 @@ script:
 
   # Use current branch to get tensorflow docker tag
   - tensorflow_version=2.1.0
-  - extra="pytorch"
+  - extra="SciPipeQSAR"
   - tag="tf-${tensorflow_version}-${extra}"
   - image="pharmbio-notebook"
   - echo $tag $image
