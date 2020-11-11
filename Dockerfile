@@ -31,7 +31,15 @@ RUN apt update && apt install -y --no-install-recommends \
     sqlite3 \
     texlive-xetex \
     texlive-fonts-recommended \
-    texlive-generic-recommended
+    texlive-generic-recommended \
+    golang \
+    libsqlite3-dev \
+    less \
+    bc \
+    default-jre
+
+# SciPipe installation
+RUN go get github.com/scipipe/scipipe/...
 
 
 # add pharmbio templates, examples and misc
