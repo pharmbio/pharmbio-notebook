@@ -31,7 +31,8 @@ RUN apt update && apt install -y --no-install-recommends \
     sqlite3 \
     texlive-xetex \
     texlive-fonts-recommended \
-    texlive-generic-recommended
+    texlive-generic-recommended \
+    pandoc
 
 
 # add pharmbio templates, examples and misc
