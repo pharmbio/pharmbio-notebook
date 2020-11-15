@@ -11,4 +11,3 @@ jupyterlab==1.2.4
 tifffile==2019.7.26.2
 chembl-webresource-client==0.10.1
 seaborn==0.11.0
-pandoc==1.0.2
