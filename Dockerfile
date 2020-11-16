@@ -25,6 +25,7 @@ RUN apt update && apt install -y --no-install-recommends \
     libpq-dev \
     git \
     vim \
+    less \
     wget \
     curl \
     sqlite \
