@@ -41,10 +41,14 @@ RUN apt update && apt install -y --no-install-recommends \
 # Go installation
 RUN cd ~ &&\
     wget https://golang.org/dl/go1.15.6.linux-amd64.tar.gz \
-    && tar -C /usr/local -zxf go1.15.6.linux-amd64.tar.gz \
+    && tar -zxf go1.15.6.linux-amd64.tar.gz \
     && echo 'export GOROOT=~/go' >> ~/.bashrc \
     && echo 'export GOPATH=~/proj/go' >> ~/.bashrc \
     && echo 'export PATH=$GOPATH/bin:$GOROOT/bin:$PATH' >> ~/.bashrc \
+
+ENV GOROOT=~/go
+ENV GOPATH=~/proj/go
+ENV PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
 # SciPipe installation
 RUN go get github.com/scipipe/scipipe/...
