@@ -35,6 +35,7 @@ RUN apt update && apt install -y --no-install-recommends \
     libsqlite3-dev \
     less \
     bc \
+    unzip \
     default-jre
 
 
