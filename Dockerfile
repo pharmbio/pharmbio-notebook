@@ -32,15 +32,22 @@ RUN apt update && apt install -y --no-install-recommends \
     texlive-xetex \
     texlive-fonts-recommended \
     texlive-generic-recommended \
-    golang \
     libsqlite3-dev \
     less \
     bc \
     default-jre
 
+
+# Go installation
+RUN cd ~ &&\
+    wget https://golang.org/dl/go1.15.6.linux-amd64.tar.gz \
+    && tar -zxvf go1.15.6.linux-amd64.tar.gz \
+    && echo 'export GOROOT=~/go' >> ~/.bashrc \
+    && echo 'export GOPATH=~/proj/go' >> ~/.bashrc \
+    && echo 'export PATH=$GOPATH/bin:$GOROOT/bin:$PATH' >> ~/.bashrc \
+
 # SciPipe installation
 RUN go get github.com/scipipe/scipipe/...
-
 
 # add pharmbio templates, examples and misc
 WORKDIR /pharmbio/
