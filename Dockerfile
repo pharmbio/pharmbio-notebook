@@ -47,9 +47,9 @@ RUN cd ~ &&\
     && echo 'export GOPATH=~/proj/go' >> ~/.bashrc \
     && echo 'export PATH=$GOPATH/bin:$GOROOT/bin:$PATH' >> ~/.bashrc \
 
-ENV GOROOT=~/go
-ENV GOPATH=~/proj/go
-ENV PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+ENV GOROOT='~/go'
+ENV GOPATH='~/proj/go'
+ENV PATH='$GOPATH/bin:$GOROOT/bin:$PATH'
 
 # SciPipe installation
 RUN go get github.com/scipipe/scipipe/...
