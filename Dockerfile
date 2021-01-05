@@ -36,7 +36,8 @@ RUN apt update && apt install -y --no-install-recommends \
     less \
     bc \
     unzip \
-    default-jre
+    default-jre \
+    csvkit 
 
 
 # Go installation
