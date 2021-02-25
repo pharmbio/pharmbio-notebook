@@ -30,7 +30,6 @@ RUN apt update && apt install -y --no-install-recommends \
     curl \
     ncdu \
     less \
-    more \
     sqlite \
     sqlite3 \
     texlive-xetex \
