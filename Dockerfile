@@ -1,4 +1,4 @@
-
+\
 # This is the Default image to be built, It will be overridden with --build-args in
 # our CICD process
 # https://hub.docker.com/r/tensorflow/tensorflow
@@ -53,7 +53,7 @@ ENV GOPATH='~/proj/go'
 ENV PATH='$GOPATH/bin:$GOROOT/bin:$PATH'
 
 # SciPipe installation
-RUN go get github.com/scipipe/scipipe/...
+RUN go get github.com/scipipe/scipipe/ ...
 
 # add pharmbio templates, examples and misc
 WORKDIR /pharmbio/
