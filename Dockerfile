@@ -33,7 +33,8 @@ RUN apt update && apt install -y --no-install-recommends \
     texlive-xetex \
     texlive-fonts-recommended \
     texlive-generic-recommended \
-    pandoc
+    pandoc \
+    rsync
 
 
 # add pharmbio templates, examples and misc
