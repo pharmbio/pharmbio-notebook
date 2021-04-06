@@ -6,7 +6,7 @@ scipy==1.4.1
 scikit-learn==0.22.1
 matplotlib==3.1.2
 pandas==1.2.3
-pillow==6.2.2
+pillow==8.1.1
 jupyterlab==1.2.4
 tifffile==2019.7.26.2
 chembl-webresource-client==0.10.1
