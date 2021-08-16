@@ -2,7 +2,7 @@
 # This is the Default image to be built, It will be overridden with --build-args in
 # our CICD process
 # https://hub.docker.com/r/tensorflow/tensorflow
-ARG BASE_IMAGE=tensorflow/tensorflow:2.1.0-py3-jupyter
+ARG BASE_IMAGE=tensorflow/tensorflow:2.4.3-jupyter
 
 FROM $BASE_IMAGE
 
