@@ -12,4 +12,4 @@ tifffile==2019.7.26.2
 chembl-webresource-client==0.10.1
 seaborn==0.11.0
 pylint==2.8.0
-fpdf==1.82
+fpdf==1.7.2
