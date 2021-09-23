@@ -2,7 +2,8 @@
 # This is the Default image to be built, It will be overridden with --build-args in
 # our CICD process
 # https://hub.docker.com/r/tensorflow/tensorflow
-ARG BASE_IMAGE=tensorflow/tensorflow:2.4.3-jupyter
+
+ARG BASE_IMAGE="should be specified with --build-arg"
 
 FROM $BASE_IMAGE
 
@@ -13,7 +14,8 @@ ENV TZ=Europe/Stockholm
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # apt installs
-RUN apt update && apt install -y --no-install-recommends \
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-transport-https \
     ca-certificates \
     software-properties-common \
@@ -32,9 +34,9 @@ RUN apt update && apt install -y --no-install-recommends \
     less \
     sqlite \
     sqlite3 \
+    texlive-base \
     texlive-xetex \
-    texlive-fonts-recommended \
-    texlive-generic-recommended
+    texlive-fonts-recommended
 
 
 # add pharmbio templates, examples and misc
@@ -51,12 +53,12 @@ COPY bash.bashrc /etc/bash.bashrc
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Install R
-Run apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
-Run add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran40/'
-Run apt update && apt install -y --no-install-recommends r-base
-Run Rscript -e "install.packages('IRkernel')"
-Run Rscript -e "IRkernel::installspec(user = FALSE)"
+## Install R
+#Run apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+#Run add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/'
+#Run apt-get update && apt-get install -y --no-install-recommends r-base
+#Run Rscript -e "install.packages('IRkernel')"
+#Run Rscript -e "IRkernel::installspec(user = FALSE)"
 
 # there must always be a jovyan - user name is hardcoded to jovyan for compatibility purposes
 RUN adduser --disabled-password --gecos '' --uid 1000 jovyan

@@ -10,15 +10,18 @@ script:
 #  - tensorflow_version="1.14.0"
 
   # Use current branch to get tensorflow docker tag
-  - tensorflow_version=2.1.0
-  - extra="pytorch"
-  - tag="tf-${tensorflow_version}-${extra}"
+  - git_branch=$TRAVIS_BRANCH
+  - tag=$git_branch
+  - tensorflow_version="${git_branch%-*}"
   - image="pharmbio-notebook"
-  - echo $tag $image
+  - echo "tensorflow_version=$tensorflow_version"
+  - echo "tag=$tag"
+  - echo "image=$image"
+
 
   # Build CPU and GPU version of this tensorflow docker
-  - docker build -t pharmbio/$image:$tag . --build-arg BASE_IMAGE=tensorflow/tensorflow:${tensorflow_version}-py3-jupyter
-  - docker build -t pharmbio/$image:${tag}-gpu . --build-arg BASE_IMAGE=tensorflow/tensorflow:${tensorflow_version}-gpu-py3-jupyter
+  - docker build -t pharmbio/$image:$tag . --build-arg BASE_IMAGE=tensorflow/tensorflow:${tensorflow_version}-jupyter
+  - docker build -t pharmbio/$image:${tag}-gpu . --build-arg BASE_IMAGE=tensorflow/tensorflow:${tensorflow_version}-gpu-jupyter
 
   # Test containers
   - docker run pharmbio/$image:$tag jupyter --version
@@ -29,16 +32,3 @@ after_success:
   - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD ;
   - docker push pharmbio/$image:$tag
   - docker push pharmbio/$image:${tag}-gpu
-
-  - patch_version_tag=${echo "$tag" | cut -d'.' -f1}.${echo "$tag" | cut -d'.' -f2}.${echo "$tag" | cut -d'.' -f3}-${extra}
-  - docker push pharmbio/$image:$patch_version_tag
-  - docker push pharmbio/$image:${patch_version_tag}-gpu
-
-  - minor_version_tag=${echo "$tag" | cut -d'.' -f1}.${echo "$tag" | cut -d'.' -f2}-${extra}
-  - docker push pharmbio/$image:$minor_version_tag
-  - docker push pharmbio/$image:${minor_version_tag}-gpu
-
-  - major_version_tag=${echo "$tag" | cut -d'.' -f1}-${extra}
-  - docker push pharmbio/$image:$major_version_tag
-  - docker push pharmbio/$image:${major_version_tag}-gpu
-
