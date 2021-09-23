@@ -15,11 +15,11 @@ jobs:
       id: img-vars
       run: |
         # This gets part of branch name afer last - e.g. branch name = tf-2.1.0
-        BRANCH=${GITHUB_REF##*/}
-        VERSION=${GITHUB_REF##*-}
+        BRANCH=$GITHUB_REF
+        VERSION="${GITHUB_REF%-*}"
         IMAGE_NAME="pharmbio/docker-containers/pharmbio-notebook"
-        IMAGE_TAG="$BRANCH-gpu-py3-jupyter"
-        BASE_IMAGE="tensorflow/tensorflow:$VERSION-gpu-py3-jupyter"
+        IMAGE_TAG="$BRANCH-gpu-jupyter"
+        BASE_IMAGE="tensorflow/tensorflow:$VERSION-gpu-jupyter"
         echo ::set-output name=IMAGE_NAME::$IMAGE_NAME
         echo ::set-output name=IMAGE_TAG::$IMAGE_TAG
         echo ::set-output name=BASE_IMAGE::$BASE_IMAGE
@@ -49,12 +49,12 @@ jobs:
       id: img-vars
       run: |
         # This gets part of branch name afer last - e.g. branch name = tf-2.1.0
-        BRANCH=${GITHUB_REF##*/}
-        VERSION=${GITHUB_REF##*-}
+        BRANCH=$GITHUB_REF
+        VERSION="${GITHUB_REF%-*}"
         IMAGE_NAME="pharmbio/docker-containers/pharmbio-notebook"
-        IMAGE_TAG="$BRANCH-py3-jupyter"
-        BASE_IMAGE="tensorflow/tensorflow:$VERSION-py3-jupyter"
-         echo ::set-output name=IMAGE_NAME::$IMAGE_NAME
+        IMAGE_TAG="$BRANCH-gpu-jupyter"
+        BASE_IMAGE="tensorflow/tensorflow:$VERSION-gpu-jupyter"
+        echo ::set-output name=IMAGE_NAME::$IMAGE_NAME
         echo ::set-output name=IMAGE_TAG::$IMAGE_TAG
         echo ::set-output name=BASE_IMAGE::$BASE_IMAGE
 
