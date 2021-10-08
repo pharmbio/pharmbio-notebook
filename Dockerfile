@@ -54,7 +54,7 @@ ENV GOPATH="/usr/local/bin/proj/go"
 ENV PATH="$GOPATH/bin:$GOROOT/bin:$PATH"
 
 # SciPipe installation
-RUN go get github.com/scipipe/scipipe/...@v0.11.2-rc1
+RUN go get github.com/scipipe/scipipe/...@v0.11.2-rc2
 
 # add pharmbio templates, examples and misc
 WORKDIR /pharmbio/
