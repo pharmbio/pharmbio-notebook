@@ -32,6 +32,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     ncdu \
     less \
+    rsync \
+    iputils-ping \
     sqlite \
     sqlite3 \
     texlive-base \
