@@ -36,6 +36,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     iputils-ping \
     sqlite \
     sqlite3 \
+    libgl1-mesa-glx \
     texlive-base \
     texlive-xetex \
     texlive-fonts-recommended
@@ -53,9 +54,14 @@ COPY bash.bashrc /etc/bash.bashrc
 
 # pip installs
 COPY requirements.txt .
-RUN python3 --version
 RUN python3 -m pip install --no-cache-dir -r requirements.txt
 
+RUN python3 -m pip install --no-cache-dir -f https://download.pytorch.org/whl/torch_stable.html \
+                           torch==1.9.1+cu111 \
+                           torchvision==0.10.1+cu111 \
+                           torchaudio==0.9.1
+                           
+RUN python3 -m pip install --no-cache-dir pytorch_toolbelt
 
 ## Install R
 #Run apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
