@@ -53,7 +53,9 @@ COPY bash.bashrc /etc/bash.bashrc
 
 # pip installs
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN python3 --version
+RUN python3 -m pip install --no-cache-dir -r requirements.txt
+
 
 ## Install R
 #Run apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
