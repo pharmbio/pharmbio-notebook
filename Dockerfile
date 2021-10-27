@@ -56,20 +56,6 @@ COPY bash.bashrc /etc/bash.bashrc
 COPY requirements.txt .
 RUN python3 -m pip install --no-cache-dir -r requirements.txt
 
-RUN python3 -m pip install --no-cache-dir -f https://download.pytorch.org/whl/torch_stable.html \
-                           torch==1.9.1+cu111 \
-                           torchvision==0.10.1+cu111 \
-                           torchaudio==0.9.1
-                           
-RUN python3 -m pip install --no-cache-dir pytorch_toolbelt
-
-## Install R
-#Run apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
-#Run add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/'
-#Run apt-get update && apt-get install -y --no-install-recommends r-base
-#Run Rscript -e "install.packages('IRkernel')"
-#Run Rscript -e "IRkernel::installspec(user = FALSE)"
-
 # there must always be a jovyan - user name is hardcoded to jovyan for compatibility purposes
 RUN adduser --disabled-password --gecos '' --uid 1000 jovyan
 RUN adduser jovyan sudo
@@ -83,9 +69,6 @@ USER jovyan
 COPY entrypoint.sh /
 
 WORKDIR /home/jovyan
-
-# python 3.6 might be changed in future, keep an eye in this
-ENV JUPYTER_PATH='$JUPYTER_PATH:/home/jovyan/.local/lib/python3.6/site-packages'
 
 #
 # The entrypoint will first copy /pharmbio/ files to user home
