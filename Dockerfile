@@ -39,7 +39,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libgl1-mesa-glx \
     texlive-base \
     texlive-xetex \
-    texlive-fonts-recommended
+    texlive-fonts-recommended \
+    python3-rdkit \
+    librdkit1 \
+    rdkit-data
 
 
 # add pharmbio templates, examples and misc
@@ -55,6 +58,14 @@ COPY bash.bashrc /etc/bash.bashrc
 # pip installs
 COPY requirements.txt .
 RUN python3 -m pip install --no-cache-dir -r requirements.txt
+
+RUN python3 -m pip install --no-cache-dir -f https://download.pytorch.org/whl/torch_stable.html \
+			   torch==1.10.1+cu113 \
+			   torchvision==0.11.2+cu113 \
+			   torchaudio==0.10.1+cu113 
+
+RUN python3 -m pip install --no-cache-dir pytorch_toolbelt
+
 
 # there must always be a jovyan - user name is hardcoded to jovyan for compatibility purposes
 RUN adduser --disabled-password --gecos '' --uid 1000 jovyan
