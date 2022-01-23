@@ -39,8 +39,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libgl1-mesa-glx \
     texlive-base \
     texlive-xetex \
-    texlive-fonts-recommended
-
+    texlive-fonts-recommended \
+    python3-rdkit \
+    librdkit1 \
+    rdkit-data
 
 # add pharmbio templates, examples and misc
 WORKDIR /pharmbio/
