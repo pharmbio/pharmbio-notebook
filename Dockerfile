@@ -39,7 +39,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libgl1-mesa-glx \
     texlive-base \
     texlive-xetex \
-    texlive-fonts-recommended
+    texlive-fonts-recommended \
+    openjdk-17-jre-headless
 
 
 # add pharmbio templates, examples and misc
