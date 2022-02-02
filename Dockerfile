@@ -42,7 +42,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     texlive-fonts-recommended \
     python3-rdkit \
     librdkit1 \
-    rdkit-data
+    rdkit-data \
+    openjdk-17-jre-headless
 
 # add pharmbio templates, examples and misc
 WORKDIR /pharmbio/
