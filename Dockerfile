@@ -57,12 +57,13 @@ COPY bash.bashrc /etc/bash.bashrc
 
 # pip installs
 COPY requirements.txt .
+RUN python3 -m pip install --no-cache-dir pip --upgrade
 RUN python3 -m pip install --no-cache-dir -r requirements.txt
 
 RUN python3 -m pip install --no-cache-dir -f https://download.pytorch.org/whl/torch_stable.html \
-			   torch==1.10.1+cu113 \
-			   torchvision==0.11.2+cu113 \
-			   torchaudio==0.10.1+cu113 
+			   torch==1.9.0+cu111 \
+			   torchvision==0.10.0+cu111 \
+			   torchaudio==0.9.0 
 
 RUN python3 -m pip install --no-cache-dir pytorch_toolbelt
 
