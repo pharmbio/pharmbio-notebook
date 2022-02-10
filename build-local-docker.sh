@@ -10,4 +10,4 @@
 #echo "image=$image"
 
 # Build docker image for this container.
-docker build -t pharmbio/pharmbio-notebook:tf-2.8.0-pytorch-gpu . --build-arg BASE_IMAGE=tensorflow/tensorflow:2.8.0-gpu-jupyter
+docker build -t pharmbio/pharmbio-notebook:tf-2.8.0-pytorch-gpu . --build-arg BASE_IMAGE=tensorflow/tensorflow:2.8.0-gpu-jupyter --no-cache
