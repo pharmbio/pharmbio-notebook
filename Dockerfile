@@ -42,8 +42,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     texlive-fonts-recommended \
     python3-rdkit \
     librdkit1 \
-    rdkit-data
-
+    rdkit-data \
+    openjdk-8-jre-headless \
+    golang
+    
+# Cpp Installs:
+RUN wget https://download.pytorch.org/libtorch/cu111/libtorch-cxx11-abi-shared-with-deps-1.9.0%2Bcu111.zip
+RUN unzip libtorch-cxx11-abi-shared-with-deps-1.9.0+cu111.zip
 
 # add pharmbio templates, examples and misc
 WORKDIR /pharmbio/
