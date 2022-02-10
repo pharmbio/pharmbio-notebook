@@ -10,5 +10,5 @@
 #echo "image=$image"
 
 # Build CPU and GPU version of this tensorflow docker
-docker build -t pharmbio/davho884-dev . --build-arg BASE_IMAGE=tensorflow/tensorflow:2.8.0-gpu-jupyter
+docker build -t pharmbio/pharmbio-notebook:tf-2.8.0-pytorch-gpu . --build-arg BASE_IMAGE=tensorflow/tensorflow:2.8.0-gpu-jupyter
 
