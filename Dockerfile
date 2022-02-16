@@ -43,7 +43,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     python3-rdkit \
     librdkit1 \
     rdkit-data \
-    openjdk-8-jre-headless \
+    openjdk-17-jdk-headless \
     golang
     
 # Cpp Installs:
