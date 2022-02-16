@@ -33,6 +33,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ncdu \
     less \
     rsync \
+    unzip \
     iputils-ping \
     sqlite \
     sqlite3 \
