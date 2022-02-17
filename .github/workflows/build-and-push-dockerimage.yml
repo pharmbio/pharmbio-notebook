@@ -23,7 +23,7 @@ jobs:
         image_name="pharmbio-notebook"
 
         echo "IMAGE_NAME=$image_name" >> $GITHUB_ENV
-        echo "TAG=$tag" >> $GITHUB_ENV
+        echo "TAG=$tag-gpu" >> $GITHUB_ENV
         echo "BASE_IMAGE=$base_image" >> $GITHUB_ENV
 
     - name: Set up Docker Buildx
