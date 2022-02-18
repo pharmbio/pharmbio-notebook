@@ -47,11 +47,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     golang
     
 # Cpp Installs:
-RUN wget https://download.pytorch.org/libtorch/cu111/libtorch-cxx11-abi-shared-with-deps-1.9.0%2Bcu111.zip
-RUN unzip libtorch-cxx11-abi-shared-with-deps-1.9.0+cu111.zip
-RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
-ENV PATH="/root/.cargo/bin:${PATH}"
-RUN cargo --help
+#RUN wget https://download.pytorch.org/libtorch/cu111/libtorch-cxx11-abi-shared-with-deps-1.9.0%2Bcu111.zip
+#RUN unzip libtorch-cxx11-abi-shared-with-deps-1.9.0+cu111.zip
+#RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
+#ENV PATH="/root/.cargo/bin:${PATH}"
+#RUN cargo --help
 
 # add pharmbio templates, examples and misc
 WORKDIR /pharmbio/
