@@ -17,4 +17,9 @@ seaborn
 tqdm
 seaborn
 segmentation-models
+mxnet_mkl
+pyqtgraph
+PyQt5
+numba
+natsort
 
