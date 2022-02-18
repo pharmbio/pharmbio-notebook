@@ -47,12 +47,17 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     openjdk-17-jdk-headless \
     golang
     
-# Cpp Installs:
+# Rust Installs:
+
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
+ENV PATH="/root/.cargo/bin:${PATH}"
+RUN cargo --help
+
+# OPTIONAL: CPP bidnings. Use local only, crashes REPO
 #RUN wget https://download.pytorch.org/libtorch/cu111/libtorch-cxx11-abi-shared-with-deps-1.9.0%2Bcu111.zip
 #RUN unzip libtorch-cxx11-abi-shared-with-deps-1.9.0+cu111.zip
-#RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
-#ENV PATH="/root/.cargo/bin:${PATH}"
-#RUN cargo --help
+#RUN rm libtorch-cxx11-abi-shared-with-deps-1.9.0+cu111.zip 
+
 
 # add pharmbio templates, examples and misc
 WORKDIR /pharmbio/
@@ -75,6 +80,8 @@ RUN python3 -m pip install --no-cache-dir -f https://download.pytorch.org/whl/to
 			   torchaudio==0.9.0 
 
 RUN python3 -m pip install --no-cache-dir pytorch_toolbelt
+RUN python3 -m pip install --no-cache-dir --no-deps cellpose \
+				omnipose
 
 
 # there must always be a jovyan - user name is hardcoded to jovyan for compatibility purposes

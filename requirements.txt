@@ -17,5 +17,4 @@ seaborn
 tqdm
 seaborn
 segmentation-models
-cellpose
-omnipose
+
