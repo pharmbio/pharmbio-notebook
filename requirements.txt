@@ -17,6 +17,8 @@ seaborn
 tqdm
 seaborn
 segmentation-models
+h5py
+btrack
 mxnet_mkl
 pyqtgraph
 PyQt5
