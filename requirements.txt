@@ -24,4 +24,6 @@ pyqtgraph
 PyQt5
 numba
 natsort
+psycopg2
+sqlalchemy
 
