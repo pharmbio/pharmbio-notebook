@@ -31,6 +31,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     wget \
     curl \
     ncdu \
+    nodejs \
     screen \
     less \
     rsync \
@@ -47,7 +48,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     rdkit-data \
     openjdk-17-jdk-headless \
     golang
-    
+
 # Rust Installs:
 
 RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
@@ -57,7 +58,7 @@ RUN cargo --help
 # OPTIONAL: CPP bidnings. Use local only, crashes REPO
 #RUN wget https://download.pytorch.org/libtorch/cu111/libtorch-cxx11-abi-shared-with-deps-1.9.0%2Bcu111.zip
 #RUN unzip libtorch-cxx11-abi-shared-with-deps-1.9.0+cu111.zip
-#RUN rm libtorch-cxx11-abi-shared-with-deps-1.9.0+cu111.zip 
+#RUN rm libtorch-cxx11-abi-shared-with-deps-1.9.0+cu111.zip
 
 
 # add pharmbio templates, examples and misc
@@ -78,7 +79,7 @@ RUN python3 -m pip install --no-cache-dir -r requirements.txt
 RUN python3 -m pip install --no-cache-dir -f https://download.pytorch.org/whl/torch_stable.html \
 			   torch==1.9.0+cu111 \
 			   torchvision==0.10.0+cu111 \
-			   torchaudio==0.9.0 
+			   torchaudio==0.9.0
 
 RUN python3 -m pip install --no-cache-dir pytorch_toolbelt
 RUN python3 -m pip install --no-cache-dir --no-deps cellpose \
