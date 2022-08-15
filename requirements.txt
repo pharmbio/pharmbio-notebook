@@ -7,6 +7,7 @@ numpy==1.22.1
 scipy
 scikit-learn
 matplotlib
+plotly
 pandas
 pillow
 jupyterlab
@@ -26,4 +27,3 @@ numba
 natsort
 psycopg2
 sqlalchemy
-
