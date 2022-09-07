@@ -42,49 +42,63 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libgl1-mesa-glx \
     texlive-base \
     texlive-xetex \
-    texlive-fonts-recommended \
-    python3-rdkit \
-    librdkit1 \
-    rdkit-data \
-    openjdk-17-jdk-headless \
-    golang
-
-# Rust Installs:
-
-RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
-ENV PATH="/root/.cargo/bin:${PATH}"
-RUN cargo --help
-
-# OPTIONAL: CPP bidnings. Use local only, crashes REPO
-#RUN wget https://download.pytorch.org/libtorch/cu111/libtorch-cxx11-abi-shared-with-deps-1.9.0%2Bcu111.zip
-#RUN unzip libtorch-cxx11-abi-shared-with-deps-1.9.0+cu111.zip
-#RUN rm libtorch-cxx11-abi-shared-with-deps-1.9.0+cu111.zip
-
-
-# add pharmbio templates, examples and misc
-WORKDIR /pharmbio/
-COPY README.md .
-COPY notebooks/* ./notebooks/
-#COPY secrets_manager.py .
-#COPY source_minio_credentials.rc .
-
-# Custom bashrc
-COPY bash.bashrc /etc/bash.bashrc
+    texlive-fonts-recommended
 
 # pip installs
 COPY requirements.txt .
 RUN python3 -m pip install --no-cache-dir pip --upgrade
 RUN python3 -m pip install --no-cache-dir -r requirements.txt
 
-RUN python3 -m pip install --no-cache-dir -f https://download.pytorch.org/whl/torch_stable.html \
-			   torch==1.9.0+cu111 \
-			   torchvision==0.10.0+cu111 \
-			   torchaudio==0.9.0
+# Install conda
+RUN wget --quiet https://repo.anaconda.com/archive/Anaconda3-2022.05-Linux-x86_64.sh -O ~/anaconda.sh && \
+    /bin/bash ~/anaconda.sh -b -p /opt/conda && \
+    rm ~/anaconda.sh
 
-RUN python3 -m pip install --no-cache-dir pytorch_toolbelt
-RUN python3 -m pip install --no-cache-dir --no-deps cellpose \
-				omnipose
+# cleanup some stuff from conda
+RUN find /opt/conda/ -follow -type f -name '*.a' -delete && \
+    find /opt/conda/ -follow -type f -name '*.js.map' -delete
+RUN /opt/conda/bin/conda clean -afy
 
+# init conda
+RUN /opt/conda/bin/conda init bash
+RUN /opt/conda/bin/conda config --set auto_activate_base false
+
+# install ReinventCommunity conda environment
+RUN git clone --depth 1 https://github.com/MolecularAI/ReinventCommunity.git
+RUN /opt/conda/bin/conda env create -f ReinventCommunity/environment.yml
+
+# RUN commands in use the new environment (can not use activate in Dockerfile):
+SHELL ["/opt/conda/bin/conda", "run", "-n", "ReinventCommunity", "/bin/bash", "-c"]
+
+# install ipykernel to this conda env and add it to notebook
+RUN conda install -c anaconda ipykernel
+RUN ipython kernel install --name=ReinventCommunity_Python3.7 --display-name "ReinventCommunity_Python3.7"
+
+# install Reinvent conda environment
+RUN git clone --depth 1 https://github.com/MolecularAI/Reinvent.git
+RUN /opt/conda/bin/conda env create -f Reinvent/reinvent.yml
+
+# RUN commands in use the new environment (can not use activate in Dockerfile):
+SHELL ["/opt/conda/bin/conda", "run", "-n", "reinvent.v3.2", "/bin/bash", "-c"]
+
+# install ipykernel to this conda env and add it to notebook
+RUN conda install -c anaconda ipykernel
+RUN ipython kernel install --name=Reinvent --display-name "Reinvent"
+
+
+SHELL ["/bin/bash", "-c"]
+
+#
+# End conda
+#
+
+# add pharmbio templates, examples and misc
+WORKDIR /pharmbio/
+COPY README.md .
+COPY notebooks/* ./notebooks/
+
+# Custom bashrc
+COPY bash.bashrc /etc/bash.bashrc
 
 # there must always be a jovyan - user name is hardcoded to jovyan for compatibility purposes
 RUN adduser --disabled-password --gecos '' --uid 1000 jovyan
@@ -99,6 +113,9 @@ USER jovyan
 COPY entrypoint.sh /
 
 WORKDIR /home/jovyan
+
+# Add conda to bashrc
+RUN echo export PATH="/opt/conda/bin:$PATH" > .bashrc
 
 #
 # The entrypoint will first copy /pharmbio/ files to user home
