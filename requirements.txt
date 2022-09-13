@@ -27,3 +27,4 @@ numba
 natsort
 psycopg2
 sqlalchemy
+xlsxwriter
