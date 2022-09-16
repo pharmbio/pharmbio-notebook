@@ -22,6 +22,11 @@ if [ ! -e /home/jovyan/media ]; then
   ln -s /media /home/jovyan/
 fi
 
+# create symlink to /share
+if [ ! -e /home/jovyan/share ]; then
+  ln -s /share /home/jovyan/
+fi
+
 # create symlink to /course-share
 if [ ! -e /home/jovyan/course-share-pvc ]; then
   ln -s /mnt/course-share-pvc /home/jovyan/
