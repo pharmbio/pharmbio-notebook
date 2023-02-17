@@ -39,9 +39,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     sqlite \
     sqlite3 \
     libgl1-mesa-glx \
-    texlive-base \
-    texlive-xetex \
-    texlive-fonts-recommended \
     python3-rdkit \
     librdkit1 \
     rdkit-data \
@@ -77,9 +74,9 @@ RUN python3 -m pip install -U "jupyter-server<2.0.0"
 RUN python3 -m pip install --no-cache-dir -r requirements.txt
 
 RUN python3 -m pip install --no-cache-dir -f https://download.pytorch.org/whl/torch_stable.html \
-			   torch==1.12.1+cu116 \
-			   torchvision==0.13.1+cu116 \
-			   torchaudio==0.12.1 
+			   torch==1.13.1+cu116 \
+			   torchvision==0.14.1+cu116 \
+			   torchaudio==0.13.1 
 
 # RUN python3 -m pip install --no-cache-dir --pre --index-url https://download.pytorch.org/whl/nightly/cu118 \
 # 			   torch \
@@ -89,7 +86,16 @@ RUN python3 -m pip install --no-cache-dir -f https://download.pytorch.org/whl/to
 RUN python3 -m pip install --no-cache-dir pytorch_toolbelt
 RUN python3 -m pip install --no-cache-dir --no-deps cellpose \
 				omnipose
+RUN python3 -m pip install --pre dgl -f https://data.dgl.ai/wheels/cu116/repo.html
+RUN python3 -m pip install --pre dglgo -f https://data.dgl.ai/wheels-test/repo.html
 
+RUN python3 pip install --no-cache-dir -f https://data.pyg.org/whl/torch-1.13.0+cu116.html \
+                pyg-lib \
+                torch-scatter \
+                torch-sparse \
+                torch-cluster \
+                torch-spline-conv \
+                torch-geometric
 
 # there must always be a jovyan - user name is hardcoded to jovyan for compatibility purposes
 RUN adduser --disabled-password --gecos '' --uid 1000 jovyan
