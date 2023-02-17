@@ -76,15 +76,15 @@ RUN python3 -m pip install --no-cache-dir pip --upgrade
 RUN python3 -m pip install -U "jupyter-server<2.0.0"
 RUN python3 -m pip install --no-cache-dir -r requirements.txt
 
-# RUN python3 -m pip install --no-cache-dir -f https://download.pytorch.org/whl/torch_stable.html \
-# 			   torch==1.9.0+cu111 \
-# 			   torchvision==0.10.0+cu111 \
-# 			   torchaudio==0.9.0 
+RUN python3 -m pip install --no-cache-dir -f https://download.pytorch.org/whl/torch_stable.html \
+			   torch==1.12.1+cu116 \
+			   torchvision==0.13.1+cu116 \
+			   torchaudio==0.12.1 
 
-RUN python3 -m pip install --no-cache-dir --pre --index-url https://download.pytorch.org/whl/nightly/cu118 \
-			   torch \
-			   torchvision \
-			   torchaudio 
+# RUN python3 -m pip install --no-cache-dir --pre --index-url https://download.pytorch.org/whl/nightly/cu118 \
+# 			   torch \
+# 			   torchvision \
+# 			   torchaudio 
 
 RUN python3 -m pip install --no-cache-dir pytorch_toolbelt
 RUN python3 -m pip install --no-cache-dir --no-deps cellpose \
