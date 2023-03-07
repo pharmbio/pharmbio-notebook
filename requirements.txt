@@ -26,4 +26,7 @@ numba
 natsort
 psycopg2
 sqlalchemy
+pyarrow
+fastparquet
+umap-learn
 
