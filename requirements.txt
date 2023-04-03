@@ -8,6 +8,7 @@ scipy
 scikit-learn
 matplotlib
 pandas
+polars
 pillow
 jupyterlab
 tifffile
@@ -15,7 +16,6 @@ chembl-webresource-client
 albumentations
 seaborn
 tqdm
-seaborn
 segmentation-models
 h5py
 btrack

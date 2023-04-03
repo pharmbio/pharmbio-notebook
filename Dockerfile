@@ -43,6 +43,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     librdkit1 \
     rdkit-data \
     openjdk-17-jdk-headless \
+    cmake\
     golang
     
 # Rust Installs, disabling unless needed:
