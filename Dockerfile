@@ -38,7 +38,8 @@ RUN apt update && apt install -y --no-install-recommends \
     unzip \
     default-jre \
     csvkit \
-    graphviz
+    graphviz \
+    rdkit-data
 
 
 # Go installation
