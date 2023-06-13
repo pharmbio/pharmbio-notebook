@@ -46,6 +46,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     cmake\
     golang\
     csvkit \
+    bc \
     graphviz
     
 # Rust Installs, disabling unless needed:
