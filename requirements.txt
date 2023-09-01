@@ -29,4 +29,4 @@ sqlalchemy
 pyarrow
 fastparquet
 umap-learn
-
+torchsummary
