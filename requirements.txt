@@ -28,3 +28,7 @@ natsort
 psycopg2
 sqlalchemy
 xlsxwriter
+pyarrow
+fastparquet
+umap-learn
+torchsummary
