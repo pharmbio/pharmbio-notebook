@@ -77,21 +77,29 @@ RUN python3 -m pip install --no-cache-dir pip --upgrade
 RUN python3 -m pip install --no-cache-dir -r requirements.txt
 
 RUN python3 -m pip install --no-cache-dir -f https://download.pytorch.org/whl/torch_stable.html \
-			   torch==1.9.0+cu111 \
-			   torchvision==0.10.0+cu111 \
-			   torchaudio==0.9.0
+			   torch==1.13.1+cu116 \
+			   torchvision==0.14.1+cu116 \
+			   torchaudio==0.13.1
+
+# RUN python3 -m pip install --no-cache-dir --pre --index-url https://download.pytorch.org/whl/nightly/cu118 \
+# 			   torch \
+# 			   torchvision \
+# 			   torchaudio
 
 RUN python3 -m pip install --no-cache-dir pytorch_toolbelt
-RUN python3 -m pip install --no-cache-dir --no-deps cellpose \
-				omnipose
+# RUN python3 -m pip install --no-cache-dir --no-deps cellpose \
+# 				omnipose
+# RUN python3 -m pip install --pre dgl -f https://data.dgl.ai/wheels/cu116/repo.html
+# RUN python3 -m pip install --pre dglgo -f https://data.dgl.ai/wheels-test/repo.html
 
-RUN python3 -m pip install --no-cache-dir -f https://data.pyg.org/whl/torch-1.9.0+cu111.html \
+RUN python3 -m pip install --no-cache-dir -f https://data.pyg.org/whl/torch-1.13.0+cu116.html \
                 pyg-lib \
                 torch-scatter \
                 torch-sparse \
                 torch-cluster \
                 torch-spline-conv \
                 torch-geometric
+
 # there must always be a jovyan - user name is hardcoded to jovyan for compatibility purposes
 RUN adduser --disabled-password --gecos '' --uid 1000 jovyan
 RUN adduser jovyan sudo
