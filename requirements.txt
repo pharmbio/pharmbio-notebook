@@ -16,7 +16,6 @@ chembl-webresource-client
 albumentations
 seaborn
 tqdm
-seaborn
 segmentation-models
 h5py
 btrack

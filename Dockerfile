@@ -51,9 +51,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # Rust Installs:
 
-RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
-ENV PATH="/root/.cargo/bin:${PATH}"
-RUN cargo --help
+#RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
+#ENV PATH="/root/.cargo/bin:${PATH}"
+#RUN cargo --help
 
 # OPTIONAL: CPP bidnings. Use local only, crashes REPO
 #RUN wget https://download.pytorch.org/libtorch/cu111/libtorch-cxx11-abi-shared-with-deps-1.9.0%2Bcu111.zip
