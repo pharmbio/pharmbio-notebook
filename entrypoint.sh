@@ -22,6 +22,11 @@ if [ ! -e /home/jovyan/media ]; then
   ln -s /media /home/jovyan/
 fi
 
+# create symlink to /share
+if [ ! -e /home/jovyan/share ]; then
+  ln -s /share /home/jovyan/
+fi
+
 # create symlink to /course-share
 if [ ! -e /home/jovyan/course-share-pvc ]; then
   ln -s /mnt/course-share-pvc /home/jovyan/
@@ -33,6 +38,16 @@ if [ ! -e /home/jovyan/tensorflow-tutorials ]; then
 fi
 
 echo Copied tutorials and templates, starting notebook...
+
+#     docker run -d --rm --name notebook \
+#                   --runtime=nvidia --gpus all \
+#                   -p 80:8888 \
+#                   --network host \
+#                   --dns 130.238.164.6 \
+#                   --dns 130.238.4.133 \
+#                   -e NOTEBOOK_PASSW_SHA1="sha1:2c32ea8566b5:b646acb256d79c65d2c1d2492e58e89a963c8881" \
+#                   -v $PWD:/home/jovyan \
+#                   -it ghcr.io/pharmbio/pharmbio-notebook:tf-2.12.0rc0-pytorch-gpu
 
 # Start jupyter service
 jupyter notebook --notebook-dir=/home/jovyan \
