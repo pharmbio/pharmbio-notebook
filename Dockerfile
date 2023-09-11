@@ -75,7 +75,7 @@ COPY bash.bashrc /etc/bash.bashrc
 COPY requirements.txt .
 RUN python3 -m pip install --no-cache-dir pip --upgrade
 RUN python3 -m pip install jupyterlab==3.6.1
-#RUN python3 -m pip install -U "jupyter-server<2.0.0"
+RUN python3 -m pip install -U "jupyter-server<2.0.0"
 #RUN pyhton3 -m pip install notebook==6.4.8
 RUN python3 -m pip install --no-cache-dir -r requirements.txt
 
