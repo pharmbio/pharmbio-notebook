@@ -15,5 +15,7 @@ echo "image=$image"
 
 #docker build -t pharmbio/$image:${tag} . --build-arg BASE_IMAGE=tensorflow/tensorflow:${tensorflow_version}-gpu
 # Build CPU and GPU version of this tensorflow docker
-docker build -t pharmbio/$image:$tag . --build-arg BASE_IMAGE=tensorflow/tensorflow:${tensorflow_version}-jupyter
-docker build -t pharmbio/$image:${tag}-gpu . --build-arg BASE_IMAGE=tensorflow/tensorflow:${tensorflow_version}-gpu-jupyter
+docker build -t "ghcr.io/pharmbio/$image:$tag-devel" . --build-arg BASE_IMAGE=tensorflow/tensorflow:${tensorflow_version}-jupyter
+docker build -t "ghcr.io/pharmbio/$image:${tag}-gpu-devel" . --build-arg BASE_IMAGE=tensorflow/tensorflow:${tensorflow_version}-gpu-jupyter
+
+docker push "ghcr.io/pharmbio/$image:$tag-devel"

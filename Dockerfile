@@ -47,23 +47,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     golang
 
 # Rust Installs, disabling unless needed:
-
 RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
 ENV PATH="/root/.cargo/bin:${PATH}"
 RUN cargo --help
-
-# OPTIONAL: CPP bidnings. Use local only, crashes REPO
-#RUN wget https://download.pytorch.org/libtorch/cu111/libtorch-cxx11-abi-shared-with-deps-1.9.0%2Bcu111.zip
-#RUN unzip libtorch-cxx11-abi-shared-with-deps-1.9.0+cu111.zip
-#RUN rm libtorch-cxx11-abi-shared-with-deps-1.9.0+cu111.zip
-
 
 # add pharmbio templates, examples and misc
 WORKDIR /pharmbio/
 COPY README.md .
 COPY notebooks/* ./notebooks/
-#COPY secrets_manager.py .
-#COPY source_minio_credentials.rc .
 
 # Custom bashrc
 COPY bash.bashrc /etc/bash.bashrc
@@ -78,16 +69,7 @@ RUN python3 -m pip install --no-cache-dir -f https://download.pytorch.org/whl/to
 			   torchvision==0.14.1+cu116 \
 			   torchaudio==0.13.1
 
-# RUN python3 -m pip install --no-cache-dir --pre --index-url https://download.pytorch.org/whl/nightly/cu118 \
-# 			   torch \
-# 			   torchvision \
-# 			   torchaudio
-
 RUN python3 -m pip install --no-cache-dir pytorch_toolbelt
-# RUN python3 -m pip install --no-cache-dir --no-deps cellpose \
-# 				omnipose
-# RUN python3 -m pip install --pre dgl -f https://data.dgl.ai/wheels/cu116/repo.html
-# RUN python3 -m pip install --pre dglgo -f https://data.dgl.ai/wheels-test/repo.html
 
 RUN python3 -m pip install --no-cache-dir -f https://data.pyg.org/whl/torch-1.13.0+cu116.html \
                 pyg-lib \
