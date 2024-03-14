@@ -39,6 +39,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     sqlite \
     sqlite3 \
     libgl1-mesa-glx \
+    python3-rdkit \
+    librdkit1 \
+    rdkit-data \
     openjdk-17-jdk-headless \
     cmake\
     golang

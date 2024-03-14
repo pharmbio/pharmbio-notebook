@@ -30,4 +30,3 @@ pyarrow
 fastparquet
 umap-learn
 torchsummary
-rdkit
