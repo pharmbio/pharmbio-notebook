@@ -18,7 +18,6 @@ seaborn
 tqdm
 segmentation-models
 h5py
-btrack
 mxnet_mkl
 pyqtgraph
 PyQt5
@@ -30,3 +29,4 @@ pyarrow
 fastparquet
 umap-learn
 torchsummary
+scanpy
