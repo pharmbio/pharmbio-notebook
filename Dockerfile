@@ -65,9 +65,9 @@ RUN python3 -m pip install --no-cache-dir pip --upgrade
 RUN python3 -m pip install --no-cache-dir -r requirements.txt
 
 RUN python3 -m pip install --no-cache-dir -f https://download.pytorch.org/whl/torch_stable.html \
-			   torch==1.13.1+cu116 \
-			   torchvision==0.14.1+cu116 \
-			   torchaudio==0.13.1
+			   torch \
+			   torchvision \
+			   torchaudio
 
 RUN python3 -m pip install --no-cache-dir pytorch_toolbelt
 
