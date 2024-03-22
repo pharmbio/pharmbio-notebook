@@ -71,7 +71,7 @@ RUN python3 -m pip install --no-cache-dir -f https://download.pytorch.org/whl/to
 
 RUN python3 -m pip install --no-cache-dir pytorch_toolbelt
 
-RUN python3 -m pip install --no-cache-dir -f https://data.pyg.org/whl/torch-1.13.0+cu116.html \
+RUN python3 -m pip install --no-cache-dir -f https://data.pyg.org/whl/torch-2.2.0+cu121.html \
                 pyg-lib \
                 torch-scatter \
                 torch-sparse \
