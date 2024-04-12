@@ -104,7 +104,7 @@ RUN if [ "$FRAMEWORK" = "cuda" ]; then \
         # Insert your ROCm-specific pip install commands here
         echo "not yet implemented: $FRAMEWORK"; \
     else \
-        echo "Unsupported ENVIRONMENT: $FRAMEWORK"; \
+        echo "Unsupported ENVIRONMENT: $FRAMEWORK" && \
         exit 1; \
     fi
 
