@@ -3,11 +3,9 @@
 # our CICD process
 # https://hub.docker.com/r/tensorflow/tensorflow
 
-ARG BASE_IMAGE="should be specified with --build-arg"
-ARG FRAMEWORK="Specify with --build-arg"
-
+ARG BASE_IMAGE=#"should be specified with --build-arg"
 FROM $BASE_IMAGE
-
+ARG FRAMEWORK=#"Specify with --build-arg"
 ENV SHELL=/bin/bash
 
 # add timezone info
@@ -70,9 +68,17 @@ RUN python3 -m pip install \
                     --no-cache-dir \
                     -r requirements.txt
 
+#RUN echo $FRAMEWORK && ls 'this file does not exist'
+#RUN <<EOF
+#ls myfile
+#pip install pandas
+#EOF
+#RUN <<EOF mygo.go
+#int main(){}
+#EOF
 
 RUN if [ "$FRAMEWORK" = "cuda" ]; then \
-        echo 'test' && \
+        echo $FRAMEWORK && \
         python3 -m pip install --no-cache-dir \
                        torch==2.2.1 \
                        torchvision \

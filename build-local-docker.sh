@@ -11,11 +11,8 @@ echo "tag=$tag"
 echo "image=$image"
 
 # Build docker image for this container.
-#docker build -t pharmbio/pharmbio-notebook:tf-2.8.0-pytorch-gpu . --build-arg #BASE_IMAGE=tensorflow/tensorflow:2.8.0-gpu-jupyter --no-cache
-
-#docker build -t pharmbio/$image:${tag} . --build-arg BASE_IMAGE=tensorflow/tensorflow:${tensorflow_version}-gpu
 # Build CPU and GPU version of this tensorflow docker
-docker build -t "ghcr.io/pharmbio/$image:$tag-devel" . --build-arg BASE_IMAGE=tensorflow/tensorflow:${tensorflow_version}-jupyter --build-arg FRAMEWORK="cpu"
-docker build -t "ghcr.io/pharmbio/$image:${tag}-gpu-devel" . --build-arg BASE_IMAGE=tensorflow/tensorflow:${tensorflow_version}-gpu-jupyter --build-arg FRAMEWORK="cuda"
+docker build -t "ghcr.io/pharmbio/$image:$tag" . --build-arg BASE_IMAGE=tensorflow/tensorflow:${tensorflow_version}-jupyter --build-arg FRAMEWORK="cpu"
+docker build -t "ghcr.io/pharmbio/$image:${tag}-gpu" . --build-arg BASE_IMAGE=tensorflow/tensorflow:${tensorflow_version}-gpu-jupyter --build-arg FRAMEWORK="cuda"
 
 docker push "ghcr.io/pharmbio/$image:$tag-devel"
