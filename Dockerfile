@@ -63,43 +63,46 @@ COPY bash.bashrc /etc/bash.bashrc
 
 # pip installs
 COPY requirements.txt .
-RUN python3 -m pip install --no-cache-dir pip --upgrade
-RUN python3 -m pip install --no-cache-dir -r requirements.txt
+RUN python3 -m pip install \
+                    --no-cache-dir \
+                    pip --upgrade
+RUN python3 -m pip install \
+                    --no-cache-dir \
+                    -r requirements.txt
 
 
 RUN if [ "$FRAMEWORK" = "cuda" ]; then \
-      # Do something specific to production environment \
+        echo 'test' && \
         python3 -m pip install --no-cache-dir \
                        torch==2.2.1 \
                        torchvision \
                        torchaudio \
-                       --index-url https://download.pytorch.org/whl/cu121 \
-        python3 -m pip install --no-cache-dir pytorch_toolbelt \
+                       --index-url https://download.pytorch.org/whl/cu121 && \
+        python3 -m pip install --no-cache-dir pytorch_toolbelt && \
         python3 -m pip install --no-cache-dir -f https://data.pyg.org/whl/torch-2.2.0+cu121.html \
                pyg-lib \
                torch-scatter \
                torch-sparse \
                torch-cluster \
                torch-spline-conv \
-               torch-geometric \
+               torch-geometric; \
     elif [ "$FRAMEWORK" = "cpu" ]; then \
         python3 -m pip install --no-cache-dir \
                 torch==2.2.1 \
                 torchvision \
                 torchaudio \
-                --index-url https://download.pytorch.org/whl/cpu \
-        python3 -m pip install --no-cache-dir pytorch_toolbelt \
+                --index-url https://download.pytorch.org/whl/cpu && \
+        python3 -m pip install --no-cache-dir pytorch_toolbelt && \
         python3 -m pip install --no-cache-dir -f https://data.pyg.org/whl/torch-2.2.0+cpu.html \
                 pyg-lib \
                 torch-scatter \
                 torch-sparse \
                 torch-cluster \
                 torch-spline-conv \
-                torch-geometric \
+                torch-geometric; \
     elif [ "$FRAMEWORK" = "rocm" ]; then \
         # Insert your ROCm-specific pip install commands here
         echo "not yet implemented: $FRAMEWORK"; \
-        exit 1; \
     else \
         echo "Unsupported ENVIRONMENT: $FRAMEWORK"; \
         exit 1; \
