@@ -1,18 +1,19 @@
+# Base image should be specified with --build-arg during build
+ARG BASE_IMAGE="tensorflow/tensorflow:latest"  # Example default
 
-# This is the Default image to be built, It will be overridden with --build-args in
-# our CICD process
-# https://hub.docker.com/r/tensorflow/tensorflow
-
-ARG BASE_IMAGE=#"should be specified with --build-arg"
 FROM $BASE_IMAGE
-ARG FRAMEWORK=#"Specify with --build-arg"
+
+# ARG FRAMEWORK need to be after the build stage FROM (since it is used in another build process)
+ARG FRAMEWORK="cpu"
+
+# Set shell
 ENV SHELL=/bin/bash
 
-# add timezone info
+# Set timezone
 ENV TZ=Europe/Stockholm
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-# apt installs
+# Install base dependencies
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-transport-https \
@@ -46,59 +47,42 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     cmake\
     golang
 
-# Rust Installs, disabling unless needed:
+# Install Rust (comment out if not needed)
 RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
 ENV PATH="/root/.cargo/bin:${PATH}"
 RUN cargo --help
 
-# add pharmbio templates, examples and misc
-WORKDIR /pharmbio/
-COPY README.md .
-COPY notebooks/* ./notebooks/
-
-# Custom bashrc
-COPY bash.bashrc /etc/bash.bashrc
-
-# pip installs
+# Upgrade pip and install base Python packages
 COPY requirements.txt .
-RUN python3 -m pip install \
-                    --no-cache-dir \
-                    pip --upgrade
-RUN python3 -m pip install \
-                    --no-cache-dir \
-                    -r requirements.txt
+RUN python3 -m pip install --no-cache-dir --upgrade pip && \
+    python3 -m pip install --no-cache-dir -r requirements.txt
 
-#RUN echo $FRAMEWORK && ls 'this file does not exist'
-#RUN <<EOF
-#ls myfile
-#pip install pandas
-#EOF
-#RUN <<EOF mygo.go
-#int main(){}
-#EOF
-
+# Conditional install based on FRAMEWORK argument
 RUN if [ "$FRAMEWORK" = "cuda" ]; then \
-        echo $FRAMEWORK && \
-        python3 -m pip install --no-cache-dir \
-                       torch==2.2.1 \
-                       torchvision \
-                       torchaudio \
-                       --index-url https://download.pytorch.org/whl/cu121 && \
-        python3 -m pip install --no-cache-dir pytorch_toolbelt && \
-        python3 -m pip install --no-cache-dir -f https://data.pyg.org/whl/torch-2.2.0+cu121.html \
-               pyg-lib \
-               torch-scatter \
-               torch-sparse \
-               torch-cluster \
-               torch-spline-conv \
-               torch-geometric; \
-    elif [ "$FRAMEWORK" = "cpu" ]; then \
-        python3 -m pip install --no-cache-dir \
+        echo "Installing for CUDA framework" && \
+        python3 -m pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cu121 \
                 torch==2.2.1 \
                 torchvision \
-                torchaudio \
-                --index-url https://download.pytorch.org/whl/cpu && \
-        python3 -m pip install --no-cache-dir pytorch_toolbelt && \
+                torchaudio && \
+        python3 -m pip install --no-cache-dir \
+                pytorch_toolbelt && \
+        python3 -m pip install --no-cache-dir -f https://data.pyg.org/whl/torch-2.2.0+cu121.html \
+                pyg-lib \
+                torch-scatter \
+                torch-sparse \
+                torch-cluster \
+                torch-spline-conv \
+                torch-geometric; \
+    fi
+
+RUN if [ "$FRAMEWORK" = "cpu" ]; then \
+        echo "Installing for CPU framework" && \
+        python3 -m pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cpu \
+                torch==2.2.1 \
+                torchvision \
+                torchaudio && \
+        python3 -m pip install --no-cache-dir \
+                pytorch_toolbelt && \
         python3 -m pip install --no-cache-dir -f https://data.pyg.org/whl/torch-2.2.0+cpu.html \
                 pyg-lib \
                 torch-scatter \
@@ -106,38 +90,26 @@ RUN if [ "$FRAMEWORK" = "cuda" ]; then \
                 torch-cluster \
                 torch-spline-conv \
                 torch-geometric; \
-    else \
-        echo "Unsupported ENVIRONMENT: $FRAMEWORK" && \
-        exit 1; \
     fi
 
-#RUN python3 -m pip install --no-cache-dir \
-#                        torch==2.2.1 \
-#                        torchvision \
-#                        torchaudio \
-#                        --index-url https://download.pytorch.org/whl/cu121
-#RUN python3 -m pip install --no-cache-dir pytorch_toolbelt
 
-#RUN python3 -m pip install --no-cache-dir -f https://data.pyg.org/whl/torch-2.2.0+cu121.html \
-#                pyg-lib \
-#                torch-scatter \
-#                torch-sparse \
-#                torch-cluster \
-#                torch-spline-conv \
-#                torch-geometric
+# Add pharmbio templates, examples and misc
+WORKDIR /pharmbio/
+COPY README.md .
+COPY notebooks/* ./notebooks/
 
-# there must always be a jovyan - user name is hardcoded to jovyan for compatibility purposes
-RUN adduser --disabled-password --gecos '' --uid 1000 jovyan
-RUN adduser jovyan sudo
-RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+# Custom bashrc
+COPY bash.bashrc /etc/bash.bashrc
 
-## make sure jovyan can install in opt
+# Set up user
+RUN useradd -m -s /bin/bash -N -u 1000 jovyan && \
+    echo "jovyan ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+# Set ownership for directories jovyan might need to modify
 RUN chown jovyan /opt/
 
-# Fix user
+# Final user and work directory setup
 USER jovyan
-COPY entrypoint.sh /
-
 WORKDIR /home/jovyan
 
 #
@@ -147,4 +119,5 @@ WORKDIR /home/jovyan
 # persistent volume contents
 # Then the entrypoint will start jupyter notebook server
 #
+COPY entrypoint.sh /
 CMD /entrypoint.sh
