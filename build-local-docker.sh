@@ -1,4 +1,4 @@
-#!/bin/bash
+!/bin/bash
 set -xv
 
 git_branch="$(git branch --show-current)"
