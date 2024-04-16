@@ -3,8 +3,9 @@ set -xv
 
 git_branch="$(git branch --show-current)"
 tag=$git_branch
-tensorflow_version="${git_branch#tf-}" # remove prefix
-tensorflow_version="${tensorflow_version%-*}" # remove suffix
+#tensorflow_version="${git_branch#tf-}" # remove prefix
+#tensorflow_version="${tensorflow_version%-*}" # remove suffix
+tensorflow_version="2.16.1"
 image="pharmbio-notebook"
 echo "tensorflow_version=$tensorflow_version"
 echo "tag=$tag"
