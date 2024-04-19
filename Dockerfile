@@ -40,6 +40,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     sqlite \
     sqlite3 \
     libgl1-mesa-glx \
+    python3-venv \
     python3-rdkit \
     librdkit1 \
     rdkit-data \
@@ -92,6 +93,16 @@ RUN if [ "$FRAMEWORK" = "cpu" ]; then \
                 torch-geometric; \
     fi
 
+
+
+
+RUN pip install \
+        --extra-index-url=https://pypi.nvidia.com \
+        cudf-cu12==24.4.* dask-cudf-cu12==24.4.* cuml-cu12==24.4.* \
+        cugraph-cu12==24.4.* cuspatial-cu12==24.4.* cuproj-cu12==24.4.* \
+        cuxfilter-cu12==24.4.* cucim-cu12==24.4.* pylibraft-cu12==24.4.* \
+        raft-dask-cu12==24.4.* cuvs-cu12==24.4.*
+ 
 
 # Add pharmbio templates, examples and misc
 WORKDIR /pharmbio/
