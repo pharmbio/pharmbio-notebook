@@ -41,6 +41,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     sqlite3 \
     libgl1-mesa-glx \
     python3-rdkit \
+    python3-venv \
     librdkit1 \
     rdkit-data \
     openjdk-17-jdk-headless \
