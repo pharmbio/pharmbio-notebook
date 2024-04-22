@@ -74,6 +74,12 @@ RUN if [ "$FRAMEWORK" = "cuda" ]; then \
                 torch-cluster \
                 torch-spline-conv \
                 torch-geometric; \
+        python3 -m pip install \
+                --extra-index-url=https://pypi.nvidia.com \
+                cudf-cu12==24.4.* dask-cudf-cu12==24.4.* cuml-cu12==24.4.* \
+                cugraph-cu12==24.4.* cuspatial-cu12==24.4.* cuproj-cu12==24.4.* \
+                cuxfilter-cu12==24.4.* cucim-cu12==24.4.* pylibraft-cu12==24.4.* \
+                raft-dask-cu12==24.4.* cuvs-cu12==24.4.*; \
     fi
 
 RUN if [ "$FRAMEWORK" = "cpu" ]; then \
@@ -96,13 +102,8 @@ RUN if [ "$FRAMEWORK" = "cpu" ]; then \
 
 
 
-RUN pip install \
-        --extra-index-url=https://pypi.nvidia.com \
-        cudf-cu12==24.4.* dask-cudf-cu12==24.4.* cuml-cu12==24.4.* \
-        cugraph-cu12==24.4.* cuspatial-cu12==24.4.* cuproj-cu12==24.4.* \
-        cuxfilter-cu12==24.4.* cucim-cu12==24.4.* pylibraft-cu12==24.4.* \
-        raft-dask-cu12==24.4.* cuvs-cu12==24.4.*
- 
+
+
 
 # Add pharmbio templates, examples and misc
 WORKDIR /pharmbio/
