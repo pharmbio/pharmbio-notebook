@@ -14,10 +14,10 @@ echo "image=$image"
 docker buildx build -t ghcr.io/pharmbio/$image:$tag-devel \
              --build-arg BASE_IMAGE=tensorflow/tensorflow:${tensorflow_version}-jupyter \
              --build-arg FRAMEWORK=cpu \
-             -f ./docker/Dockerfile . || exit 1
+             -f ./docker/env.Dockerfile . || exit 1
 docker buildx build -t ghcr.io/pharmbio/$image:${tag}-gpu-devel \
              --build-arg BASE_IMAGE=tensorflow/tensorflow:${tensorflow_version}-gpu-jupyter \
              --build-arg FRAMEWORK=cuda \
-             -f docker/Dockerfile . || exit 1
+             -f docker/env.Dockerfile . || exit 1
 
 #docker push "ghcr.io/pharmbio/$image:$tag-devel"
