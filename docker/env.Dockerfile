@@ -24,6 +24,7 @@ RUN <<EOF
     software-properties-common \
     libegl1-mesa-dev \
     libgles2-mesa-dev \
+    python3-pip \
     gnupg \
     tmux \
     sudo \

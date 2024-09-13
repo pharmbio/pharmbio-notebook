@@ -23,7 +23,7 @@ pyqtgraph
 PyQt5
 numba
 natsort
-psycopg2
+psycopg2-binary
 sqlalchemy
 pyarrow
 fastparquet
