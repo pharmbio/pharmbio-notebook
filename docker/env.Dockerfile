@@ -22,6 +22,8 @@ RUN <<EOF
     apt-transport-https \
     ca-certificates \
     software-properties-common \
+    libegl1-mesa-dev \
+    libgles2-mesa-dev \
     gnupg \
     tmux \
     sudo \
