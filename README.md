@@ -6,7 +6,7 @@ Docker containers for interactive notebook environments for rancher cluster. Dif
 Built dockers published to [pharmbio docker repo](https://cloud.docker.com/u/pharmbio/repository/docker/pharmbio/pharmbio-notebook), updates to this repo builds automatically with travis
 
 # Current Branch Notes:
-Pharmbio/pharmbio:tf-2.8.0-pytorch-gpu is built using the tensorflow 2.8.0 base image published by tensorflow. It emulated Ubuntu20.04, and natively runs python 3.8 now. CUDA11.2 is installed and paired with PyTorch 1.9.0.
+Pharmbio/pharmbio:tf-2.17.0-pytorch-gpu is built using the tensorflow 2.17.0 base image published by tensorflow. It emulates Ubuntu22.04, and natively runs python 3.11 now. CUDA12.3 is installed and paired with PyTorch 2.x.x.
 
 # Branch versioning
 Current branch for latest is "nightly"<br>
