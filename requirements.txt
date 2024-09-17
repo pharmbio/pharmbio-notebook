@@ -16,9 +16,9 @@ tifffile
 albumentations
 seaborn
 tqdm
-segmentation-models
+#segmentation-models
 h5py
-mxnet_mkl
+#mxnet_mkl
 pyqtgraph
 PyQt5
 numba
@@ -27,6 +27,6 @@ psycopg2-binary
 sqlalchemy
 pyarrow
 fastparquet
-umap-learn
-torchsummary
+#umap-learn
+#torchsummary
 scanpy
