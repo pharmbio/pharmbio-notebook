@@ -2,7 +2,7 @@
 ARG BASE_IMAGE="tensorflow/tensorflow:latest"  # Example default
 
 FROM $BASE_IMAGE
-
+ARG FRAMEWORK="cuda"
 # ARG FRAMEWORK need to be after the build stage FROM (since it is used in another build process)
 ARG FRAMEWORK
 

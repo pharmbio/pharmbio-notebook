@@ -76,11 +76,13 @@ jobs:
         tensorflow_version="${git_branch#tf-}" # remove prefix
         tensorflow_version="${tensorflow_version%-*}" # remove suffix 
         base_image="tensorflow/tensorflow:${tensorflow_version}-jupyter"
+        framework="cpu"
         image_name="pharmbio-notebook"
 
         echo "IMAGE_NAME=$image_name" >> $GITHUB_ENV
         echo "TAG=$tag" >> $GITHUB_ENV
         echo "BASE_IMAGE=$base_image" >> $GITHUB_ENV
+        echo "FRAMEWORK=$framework" >> $GITHUB_ENV0
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
