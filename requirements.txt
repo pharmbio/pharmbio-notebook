@@ -12,7 +12,7 @@ polars
 pillow
 jupyterlab
 tifffile
-chembl-webresource-client
+#chembl-webresource-client
 albumentations
 seaborn
 tqdm

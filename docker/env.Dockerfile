@@ -37,7 +37,7 @@ RUN <<EOF
     wget \
     curl \
     ncdu \
-    screen \
+    #screen \
     less \
     rsync \
     zip \
@@ -47,18 +47,18 @@ RUN <<EOF
     sqlite3 \
     libgl1-mesa-glx \
     python3-venv \
-    python3-rdkit \
+    #python3-rdkit \
     librdkit1 \
-    rdkit-data \
+    #rdkit-data \
     openjdk-17-jdk-headless \
     cmake\
     #golang
 EOF
 
 # Install Rust (comment out if not needed)
-RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
-ENV PATH="/root/.cargo/bin:${PATH}"
-RUN cargo --help
+#RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
+#ENV PATH="/root/.cargo/bin:${PATH}"
+#RUN cargo --help
 
 # Upgrade pip and install base Python packages
 COPY requirements.txt .
