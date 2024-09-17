@@ -37,7 +37,6 @@ RUN <<EOF
     wget \
     curl \
     ncdu \
-    #screen \
     less \
     rsync \
     zip \
@@ -47,12 +46,7 @@ RUN <<EOF
     sqlite3 \
     libgl1-mesa-glx \
     python3-venv \
-    #python3-rdkit \
-    #librdkit1 \
-    #rdkit-data \
     openjdk-17-jdk-headless \
-    cmake\
-    #golang
 EOF
 
 # Install Rust (comment out if not needed)
