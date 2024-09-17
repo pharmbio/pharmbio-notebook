@@ -48,7 +48,7 @@ RUN <<EOF
     libgl1-mesa-glx \
     python3-venv \
     #python3-rdkit \
-    librdkit1 \
+    #librdkit1 \
     #rdkit-data \
     openjdk-17-jdk-headless \
     cmake\
