@@ -11,11 +11,11 @@ echo "tag=$tag"
 echo "image=$image"
 #switch to buildx build
 # Build docker image for this container.
-docker buildx build --no-cache -t ghcr.io/pharmbio/$image:$tag-devel \
-             --build-arg BASE_IMAGE=tensorflow/tensorflow:${tensorflow_version}-jupyter \
-             --build-arg FRAMEWORK=cpu \
-             -f ./docker/env.Dockerfile . || exit 1
-docker buildx build --no-cache -t ghcr.io/pharmbio/$image:${tag}-gpu-devel \
+# docker buildx build --no-cache -t ghcr.io/pharmbio/$image:$tag \
+#              --build-arg BASE_IMAGE=tensorflow/tensorflow:${tensorflow_version}-jupyter \
+#              --build-arg FRAMEWORK=cpu \
+#              -f ./docker/env.Dockerfile . || exit 1
+docker buildx build --no-cache -t ghcr.io/pharmbio/$image:${tag}-gpu \
              --build-arg BASE_IMAGE=tensorflow/tensorflow:${tensorflow_version}-gpu-jupyter \
              --build-arg FRAMEWORK=cuda \
              -f docker/env.Dockerfile . || exit 1

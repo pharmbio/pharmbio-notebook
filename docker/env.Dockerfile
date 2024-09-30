@@ -67,15 +67,6 @@ RUN <<EOF
                         torch==2.2.1 \
                         torchvision \
                         torchaudio;
-                python3 -m pip install --no-cache-dir \ 
-                        pytorch_toolbelt;
-                # python3 -m pip install --no-cache-dir -f https://data.pyg.org/whl/torch-2.2.0+cu121.html \
-                #         pyg-lib \
-                #         torch-scatter \
-                #         torch-sparse \
-                #         torch-cluster \
-                #         torch-spline-conv \
-                #         torch-geometric;
                 python3 -m pip install \
                         --extra-index-url=https://pypi.nvidia.com \
                         cudf-cu12==24.6.* dask-cudf-cu12==24.6.* cuml-cu12==24.6.* \
@@ -88,15 +79,6 @@ RUN <<EOF
                         torch==2.2.1 \
                         torchvision \
                         torchaudio;
-                python3 -m pip install --no-cache-dir 
-                        pytorch_toolbelt ;
-                # python3 -m pip install --no-cache-dir -f https://data.pyg.org/whl/torch-2.2.0+cpu.html \
-                #         pyg-lib \
-                #         torch-scatter \
-                #         torch-sparse \
-                #         torch-cluster \
-                #         torch-spline-conv \
-                #         torch-geometric; 
         else 
         echo "Error: unknown hardware" 
         exit 1 
@@ -109,9 +91,9 @@ EOF
 
 
 # Add pharmbio templates, examples and misc
-WORKDIR /pharmbio/
-COPY README.md .
-COPY notebooks/* ./notebooks/
+#WORKDIR /pharmbio/
+#COPY README.md .
+#COPY notebooks/* ./notebooks/
 
 # Custom bashrc
 COPY bash.bashrc /etc/bash.bashrc
