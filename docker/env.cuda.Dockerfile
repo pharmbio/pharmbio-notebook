@@ -17,8 +17,8 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 ENV DEBIAN_FRONTEND=noninteractive
 # >apt_installs.txt to save instead of executing
 RUN <<EOF
- apt-get update
- apt-get install -y --no-install-recommends \
+apt-get update
+apt-get install -y --no-install-recommends \
     apt-transport-https \
     ca-certificates \
     software-properties-common \
@@ -61,18 +61,16 @@ RUN python3 -m pip install --no-cache-dir --upgrade pip && \
 
 
 # Breakpoint - temporary shell for debugging
-RUN --mount=type=cache,target=/tmp \
-    echo "Entering breakpoint shell"; \
-    sleep infinity
+# RUN --mount=type=cache,target=/tmp \
+#     echo "Entering breakpoint shell"; \
+#     sleep infinity
 
-RUN echo "Step 2: Continuing after breakpoint"
+# RUN echo "Step 2: Continuing after breakpoint"
 
 RUN <<EOF 
-        echo "Installing for CUDA framework" 
-        python3 -m pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cu121 \ 
-                torch==2.4.1 \
-                torchvision \
-                torchaudio;
+python3 -m pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cu121 torch==2.4.1 \
+        torchvision \
+        torchaudio;
 EOF
 
 # RUN python3 -m pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cu121 \ 
