@@ -60,29 +60,13 @@ RUN python3 -m pip install --no-cache-dir --upgrade pip && \
     python3 -m pip install --no-cache-dir -r requirements.txt
 
 # Conditional install based on FRAMEWORK argument
-RUN <<EOF 
-        if [ "$FRAMEWORK" = "cuda" ]; then 
-                echo "Installing for CUDA framework" 
-                python3 -m pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cu121 \ 
-                        torch==2.2.1 \
-                        torchvision \
-                        torchaudio;
-                python3 -m pip install \
-                        --extra-index-url=https://pypi.nvidia.com \
-                        cudf-cu12==24.6.* dask-cudf-cu12==24.6.* cuml-cu12==24.6.* \
-                        cugraph-cu12==24.6.* cuspatial-cu12==24.6.* cuproj-cu12==24.6.* \
-                        cuxfilter-cu12==24.6.* cucim-cu12==24.6.* pylibraft-cu12==24.6.* \
-                        raft-dask-cu12==24.6.* cuvs-cu12==24.6.*; 
-        elif [ "$FRAMEWORK" = "cpu" ]; then 
-                echo "Installing for CPU framework" 
-                python3 -m pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cpu \
-                        torch==2.2.1 \
-                        torchvision \
-                        torchaudio;
-        else 
-        echo "Error: unknown hardware" 
-        exit 1 
-        fi
+RUN <<EOF  
+        echo "Installing for CPU framework" 
+        python3 -m pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cpu \
+                torch==2.4.1 \
+                torchvision \
+                torchaudio;
+
 EOF
 
 
