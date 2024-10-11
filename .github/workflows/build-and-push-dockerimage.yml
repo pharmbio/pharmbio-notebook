@@ -26,7 +26,6 @@ jobs:
         echo "IMAGE_NAME=$image_name" >> $GITHUB_ENV
         echo "TAG=$tag" >> $GITHUB_ENV
         echo "BASE_IMAGE=$base_image" >> $GITHUB_ENV
-        echo "FRAMEWORK=$framework" >> $GITHUB_ENV
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
@@ -48,7 +47,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: .
-        file: ./docker/env.Dockerfile
+        file: ./docker/env.cuda.Dockerfile
         platforms: linux/amd64
         push: true
         tags: |
@@ -82,7 +81,6 @@ jobs:
         echo "IMAGE_NAME=$image_name" >> $GITHUB_ENV
         echo "TAG=$tag" >> $GITHUB_ENV
         echo "BASE_IMAGE=$base_image" >> $GITHUB_ENV
-        echo "FRAMEWORK=$framework" >> $GITHUB_ENV0
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
@@ -104,7 +102,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: .
-        file: ./docker/env.Dockerfile
+        file: ./docker/env.cpu.Dockerfile
         platforms: linux/amd64
         push: true
         tags: |

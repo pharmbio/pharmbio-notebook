@@ -73,19 +73,6 @@ python3 -m pip install --no-cache-dir --index-url https://download.pytorch.org/w
         torchaudio;
 EOF
 
-# RUN python3 -m pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cu121 \ 
-#         torch==2.2.1 \
-#         torchvision \
-#         torchaudio;
-# RUN python3 -m pip install \
-#         --extra-index-url=https://pypi.nvidia.com \
-#         cudf-cu12==24.6.* dask-cudf-cu12==24.6.* cuml-cu12==24.6.* \
-#         cugraph-cu12==24.6.* cuspatial-cu12==24.6.* cuproj-cu12==24.6.* \
-#         cuxfilter-cu12==24.6.* cucim-cu12==24.6.* pylibraft-cu12==24.6.* \
-#         raft-dask-cu12==24.6.* cuvs-cu12==24.6.*; 
-
-
-
 
 # Add pharmbio templates, examples and misc
 #WORKDIR /pharmbio/
