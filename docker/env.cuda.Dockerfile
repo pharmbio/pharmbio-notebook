@@ -15,10 +15,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # Install base dependencies
 ENV DEBIAN_FRONTEND=noninteractive
-# >apt_installs.txt to save instead of executing
-RUN <<EOF
- apt-get update
- apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-transport-https \
     ca-certificates \
     software-properties-common \
@@ -46,8 +43,7 @@ RUN <<EOF
     sqlite3 \
     libgl1-mesa-glx \
     python3-venv \
-    openjdk-17-jdk-headless \
-EOF
+    openjdk-17-jdk-headless
 
 # Install Rust (comment out if not needed)
 #RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
@@ -59,21 +55,12 @@ COPY requirements.txt .
 RUN python3 -m pip install --no-cache-dir --upgrade pip && \
     python3 -m pip install --no-cache-dir -r requirements.txt
 
-
-# Breakpoint - temporary shell for debugging
-RUN --mount=type=cache,target=/tmp \
-    echo "Entering breakpoint shell"; \
-    sleep infinity
-
-RUN echo "Step 2: Continuing after breakpoint"
-
-RUN <<EOF 
-        echo "Installing for CUDA framework" 
-        python3 -m pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cu121 \ 
+RUN echo "Installing for CUDA framework" 
+RUN python3 -m pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cu121 \ 
                 torch==2.4.1 \
                 torchvision \
-                torchaudio;
-EOF
+                torchaudio
+
 
 # RUN python3 -m pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cu121 \ 
 #         torch==2.2.1 \
