@@ -68,9 +68,9 @@ RUN python3 -m pip install --no-cache-dir --upgrade pip && \
 # RUN echo "Step 2: Continuing after breakpoint"
 
 RUN <<EOF 
-python3 -m pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cu121 torch==2.4.1 \
+python3 -m pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cu121 torch \
         torchvision \
-        torchaudio;
+        torchaudio \
 EOF
 
 
