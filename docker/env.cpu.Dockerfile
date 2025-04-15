@@ -24,7 +24,6 @@ RUN <<EOF
     software-properties-common \
     libegl1-mesa-dev \
     libgles2-mesa-dev \
-    python3-pip \
     gnupg \
     tmux \
     sudo \
@@ -45,7 +44,6 @@ RUN <<EOF
     sqlite \
     sqlite3 \
     libgl1-mesa-glx \
-    python3-venv \
     openjdk-17-jdk-headless \
 EOF
 
@@ -56,6 +54,7 @@ EOF
 
 # Upgrade pip and install base Python packages
 COPY requirements.txt .
+RUN python3 --version
 RUN python3 -m pip install --no-cache-dir --upgrade pip && \
     python3 -m pip install --no-cache-dir -r requirements.txt
 
