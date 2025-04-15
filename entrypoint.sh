@@ -40,7 +40,7 @@ fi
 echo Copied tutorials and templates, starting notebook...
 
 # Start jupyter service
-jupyter notebook --notebook-dir=/home/jovyan \
+jupyter lab --notebook-dir=/home/jovyan \
             --ip 0.0.0.0 \
             --no-browser \
             --allow-root \
