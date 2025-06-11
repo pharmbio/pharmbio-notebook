@@ -29,7 +29,7 @@ fi
 
 if [ "$SSH_ENABLED" = "true" ]; then
   echo "Starting ssh server"
-  /usr/sbin/sshd -E /var/log/sshd.log &
+  sudo /usr/sbin/sshd -E /var/log/sshd.log &
 else
   echo "SSH not enabled; skipping sshd startup"
 fi
