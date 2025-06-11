@@ -27,20 +27,12 @@ if [ ! -e /home/jovyan/share ]; then
   ln -s /share /home/jovyan/
 fi
 
-# create symlink to /course-share
-if [ ! -e /home/jovyan/course-share-pvc ]; then
-  ln -s /mnt/course-share-pvc /home/jovyan/
+if [ "$SSH_ENABLED" = "true" ]; then
+  echo "Starting ssh server"
+  /usr/sbin/sshd -E /var/log/sshd.log &
+else
+  echo "SSH not enabled; skipping sshd startup"
 fi
-
-# create symlink to tensorflow notebook tutorials dir
-if [ ! -e /home/jovyan/tensorflow-tutorials ]; then
-  ln -s /tf/tensorflow-tutorials /home/jovyan/tensorflow-tutorials
-fi
-
-echo "Copied tutorials and templates"
-
-echo "Startin ssh server"
-sudo /usr/sbin/sshd -E /var/log/sshd.log
 
 echo "starting notebook..."
 
