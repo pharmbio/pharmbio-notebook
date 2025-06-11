@@ -29,6 +29,7 @@ RUN <<EOF
     tmux \
     sudo \
     ssh \
+    openssh-server \
     nano \
     mysql-client \
     libpq-dev \
@@ -88,6 +89,9 @@ RUN useradd -m -s /bin/bash -N -u 1000 jovyan && \
 
 # Set ownership for directories jovyan might need to modify
 RUN chown jovyan /opt/
+
+# Ensure SSH daemon directory exists & generate host keys
+RUN mkdir -p /var/run/sshd && ssh-keygen -A
 
 # Final user and work directory setup
 USER jovyan
