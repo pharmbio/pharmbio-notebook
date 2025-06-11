@@ -59,19 +59,14 @@ RUN python3 -m pip install --no-cache-dir --upgrade pip && \
     python3 -m pip install --no-cache-dir -r requirements.txt
 
 # Conditional install based on FRAMEWORK argument
-RUN <<EOF  
-        echo "Installing for CPU framework" 
+RUN <<EOF
+        echo "Installing for CPU framework"
         python3 -m pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cpu \
                 torch==2.4.1 \
                 torchvision \
                 torchaudio;
 
 EOF
-
-
-
-
-
 
 # Add pharmbio templates, examples and misc
 #WORKDIR /pharmbio/
@@ -87,6 +82,18 @@ RUN useradd -m -s /bin/bash -N -u 1000 jovyan && \
 
 # Set ownership for directories jovyan might need to modify
 RUN chown jovyan /opt/
+
+#
+# Add SSH
+#
+RUN apt-get install -y --no-install-recommends \
+            openssh-server \
+            ssh
+
+# Ensure SSH daemon directory exists & generate host keys
+RUN mkdir -p /var/run/sshd && ssh-keygen -A
+
+
 
 # Final user and work directory setup
 USER jovyan

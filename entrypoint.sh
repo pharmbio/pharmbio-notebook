@@ -37,7 +37,12 @@ if [ ! -e /home/jovyan/tensorflow-tutorials ]; then
   ln -s /tf/tensorflow-tutorials /home/jovyan/tensorflow-tutorials
 fi
 
-echo Copied tutorials and templates, starting notebook...
+echo "Copied tutorials and templates"
+
+echo "Startin ssh server"
+sudo /usr/sbin/sshd -E /var/log/sshd.log
+
+echo "starting notebook..."
 
 # Start jupyter service
 jupyter lab --notebook-dir=/home/jovyan \
