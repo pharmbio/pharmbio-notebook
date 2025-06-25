@@ -3,59 +3,6 @@ name: CICD docker image
 on: push
 
 jobs:
-  build-gpu:
-    name: Build and push docker image gpu
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-
-      - name: Create parameters from branch name, such as tag, image, build-args
-        run: |
-          # This gets part of branch name after the last slash (e.g., if branch is "some/ref/tf-2.1.0", then "tf-2.1.0")
-          git_branch="${GITHUB_REF##*/}"
-          tag="$git_branch-gpu"
-          tensorflow_version="${git_branch#tf-}"  # remove 'tf-' prefix
-          tensorflow_version="${tensorflow_version%-*}"  # remove any trailing '-xxx'
-          base_image="tensorflow/tensorflow:${tensorflow_version}-gpu-jupyter"
-          framework="cuda"
-          image_name="pharmbio-notebook"
-
-          echo "IMAGE_NAME=$image_name" >> $GITHUB_ENV
-          echo "TAG=$tag" >> $GITHUB_ENV
-          echo "BASE_IMAGE=$base_image" >> $GITHUB_ENV
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Login to DockerHub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build and push
-        uses: docker/build-push-action@v3
-        with:
-          context: .
-          file: ./docker/env.cuda.Dockerfile
-          platforms: linux/amd64
-          push: true
-          tags: |
-            ghcr.io/pharmbio/pharmbio-notebook:${{ env.TAG }}
-            pharmbio/pharmbio-notebook:${{ env.TAG }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-          build-args: |
-            BASE_IMAGE=${{ env.BASE_IMAGE }}
-
   build-nogpu:
     name: Build and push docker image cpu
     runs-on: ubuntu-latest

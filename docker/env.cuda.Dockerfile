@@ -26,7 +26,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     sudo \
     ssh \
     openssh-server \
-    nano \
     mysql-client \
     libpq-dev \
     git \
@@ -35,6 +34,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     ncdu \
     less \
+    texlive-xetex \
+    texlive-fonts-recommended \
+    texlive-generic-recommended \
+    libsqlite3-dev \
+    bc \
     rsync \
     zip \
     unzip \
@@ -42,6 +46,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     sqlite \
     sqlite3 \
     libgl1-mesa-glx \
+    csvkit \
+    graphviz \
+    rdkit-data \
     openjdk-17-jdk-headless
 
 # Install Rust (comment out if not needed)
@@ -55,11 +62,7 @@ RUN python3 --version
 RUN python3 -m pip install --no-cache-dir --upgrade pip && \
     python3 -m pip install --no-cache-dir -r requirements.txt
 
-RUN echo "Installing for CUDA framework" 
-RUN python3 -m pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cu121 \ 
-                torch==2.4.1 \
-                torchvision \
-                torchaudio
+
 
 
 # RUN python3 -m pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cu121 \ 

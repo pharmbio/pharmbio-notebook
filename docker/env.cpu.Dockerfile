@@ -16,9 +16,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 # Install base dependencies
 ENV DEBIAN_FRONTEND=noninteractive
 # >apt_installs.txt to save instead of executing
-RUN <<EOF
- apt-get update
- apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-transport-https \
     ca-certificates \
     software-properties-common \
@@ -29,7 +27,6 @@ RUN <<EOF
     sudo \
     ssh \
     openssh-server \
-    nano \
     mysql-client \
     libpq-dev \
     git \
@@ -38,6 +35,11 @@ RUN <<EOF
     curl \
     ncdu \
     less \
+    texlive-xetex \
+    texlive-fonts-recommended \
+    texlive-generic-recommended \
+    libsqlite3-dev \
+    bc \
     rsync \
     zip \
     unzip \
@@ -45,13 +47,10 @@ RUN <<EOF
     sqlite \
     sqlite3 \
     libgl1-mesa-glx \
-    openjdk-17-jdk-headless \
-EOF
-
-# Install Rust (comment out if not needed)
-#RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
-#ENV PATH="/root/.cargo/bin:${PATH}"
-#RUN cargo --help
+    csvkit \
+    graphviz \
+    rdkit-data \
+    openjdk-17-jdk-headless
 
 # Upgrade pip and install base Python packages
 COPY requirements.txt .
@@ -60,14 +59,7 @@ RUN python3 -m pip install --no-cache-dir --upgrade pip && \
     python3 -m pip install --no-cache-dir -r requirements.txt
 
 # Conditional install based on FRAMEWORK argument
-RUN <<EOF
-        echo "Installing for CPU framework"
-        python3 -m pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cpu \
-                torch==2.4.1 \
-                torchvision \
-                torchaudio;
 
-EOF
 
 # Add pharmbio templates, examples and misc
 #WORKDIR /pharmbio/
