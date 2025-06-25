@@ -13,7 +13,7 @@ echo "image=$image"
 ## CPU version
 DOCKER_BUILDKIT=1 docker buildx build -t ghcr.io/pharmbio/$image:${tag} \
              --build-arg BASE_IMAGE=tensorflow/tensorflow:${tensorflow_version}-jupyter \
-             -f docker/env.cuda.Dockerfile . || exit 1
+             -f docker/env.cpu.Dockerfile . || exit 1
 
 # GPU version
 #DOCKER_BUILDKIT=1 docker buildx build -t ghcr.io/pharmbio/$image:${tag}-gpu \ # without cache --no-cache

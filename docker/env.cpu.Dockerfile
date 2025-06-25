@@ -37,7 +37,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     less \
     texlive-xetex \
     texlive-fonts-recommended \
-    texlive-generic-recommended \
+    texlive-latex-recommended \
     libsqlite3-dev \
     bc \
     rsync \
@@ -51,6 +51,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     graphviz \
     rdkit-data \
     openjdk-17-jdk-headless
+
 
 # Upgrade pip and install base Python packages
 COPY requirements.txt .
