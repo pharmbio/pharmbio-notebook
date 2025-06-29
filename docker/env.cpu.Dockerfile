@@ -50,7 +50,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     csvkit \
     graphviz \
     rdkit-data \
-    openjdk-17-jdk-headless
+    openjdk-17-jdk-headless \
+    golang-go
 
 
 # Upgrade pip and install base Python packages
