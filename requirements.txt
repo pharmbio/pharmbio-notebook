@@ -2,6 +2,9 @@ idna
 networkx
 pymysql
 awscli
+boto3 
+aioboto3 
+aiofiles
 opencv-python-headless
 numpy
 scipy
