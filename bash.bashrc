@@ -14,6 +14,11 @@
 #
 # ==============================================================================
 
+case $- in
+  *i*) ;;
+  *) return ;;
+esac
+
 export PS1="\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@ph-notebook\[\e[m\]:\[\033[01;34m\]\w\[\033[00m\]\$ "
 export TERM=xterm-256color
 alias grep="grep --color=auto"
