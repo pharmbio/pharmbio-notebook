@@ -31,3 +31,6 @@ fastparquet
 #torchsummary
 scanpy
 rdkit
+torch_geometric
+torchsummary
+segmentation_models
