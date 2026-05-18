@@ -34,6 +34,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     wget \
     curl \
     ncdu \
+    htop \
+    nvtop \
+    jq \
     less \
     rsync \
     zip \

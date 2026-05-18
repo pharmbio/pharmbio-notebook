@@ -37,6 +37,9 @@ RUN <<EOF
     wget \
     curl \
     ncdu \
+    htop \
+    nvtop \
+    jq \
     less \
     rsync \
     zip \
